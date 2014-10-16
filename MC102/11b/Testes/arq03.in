@@ -1,0 +1,12 @@
+% 1
+
+@article{1998-bafna-pevzner,
+ author = {Vineet Bafna and Pavel A. Pevzner},
+ title = {Sorting by Transpositions},
+ journal = {SIAM Journal on Discrete Mathematics},
+ volume = {11},
+ number = {2},
+ year = {1998},
+ pages = {224 - 240},
+}
+

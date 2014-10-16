@@ -1,0 +1,110 @@
+% 11
+
+@article{2005-hartman-sharan,
+ author = {Tzvika Hartman and Roded Sharan},
+ title = {A 1.5-Approximation Algorithm for Sorting by Transpositions and Transreversals},
+ journal = {Journal of Computer and System Sciences},
+ volume = {70},
+ number = {3},
+ year = {2005},
+ pages = {300 - 320},
+}
+
+@article{2001-eriksson-etal,
+ title = {Sorting a Bridge Hand},
+ journal = {Discrete Mathematics},
+ volume = {241},
+ number = {3},
+ year = {2001},
+ pages = {289 - 300},
+ author = {Henrik Eriksson and Kimmo Eriksson and Johan Karlander and Lars Svensson and Johan Wastlund},
+}
+
+@article{2001-lin-xue,
+ volume = {259},
+ title = {Signed Genome Rearrangement by Reversals and Transpositions: Models and Approximations},
+ number = {2},
+ pages = {513 - 531},
+ journal = {Theoretical Computer Science},
+ year = {2001},
+ author = {Guo-Hui Lin and Guoliang Xue},
+}
+
+@article{2002-pinter-skiena,
+ journal = {Genome Informatics},
+ author = {Ron Y. Pinter and Steven Skiena},
+ year = {2002},
+ volume = {13},
+ title = {Genomic Sorting with Length-Weighted Reversals},
+ pages = {2002},
+}
+
+@article{2004-lin-jiang,
+ year = {2004},
+ journal = {Journal of Combinatorial Optimization},
+ volume = {8},
+ number = {2},
+ pages = {183 - 194},
+ title = {A Further Improved Approximation Algorithm for Breakpoint Graph Decomposition},
+ author = {Guohui Lin and Tao Jiang},
+}
+
+@article{2002-caprara-rizzi,
+ title = {Improved Approximation for Breakpoint Graph Decomposition and Sorting by Reversals},
+ year = {2002},
+ journal = {Journal of Combinatorial Optimization},
+ number = {2},
+ author = {Alberto Caprara and Romeo Rizzi},
+ pages = {157 - 182},
+ volume = {6},
+}
+
+@article{2005-bergeron,
+ author = {Anne Bergeron},
+ journal = {Discrete Applied Mathematics},
+ volume = {146},
+ number = {2},
+ title = {A Very Elementary Presentation of the Hannenhalli-Pevzner Theory},
+ year = {2005},
+ pages = {134 - 145},
+}
+
+@article{2006-elias-hartman,
+ title = {A 1.375-Approximation Algorithm for Sorting by Transpositions},
+ journal = {IEEE/ACM Transactions on Computational Biology and Bioinformatics},
+ volume = {3},
+ author = {Isaac Elias and Tzvika Hartman},
+ year = {2006},
+ number = {4},
+ pages = {369 - 379},
+}
+
+@article{2001-bader-etal,
+ author = {David A. Bader and Bernard M. E. Moret and Mi Yan},
+ title = {A Linear-Time Algorithm for Computing Inversion Distance Between Signed Permutations with an Experimental Study},
+ journal = {Journal of Computational Biology},
+ year = {2001},
+ volume = {8},
+ pages = {483 - 491},
+}
+
+@article{2002-meidanis-etal,
+ title = {A Lower Bound on the Reversal and Transposition Diameter},
+ author = {Joao Meidanis and Maria M. T. Walter and Zanoni Dias},
+ journal = {Journal of Computational Biology},
+ volume = {9},
+ number = {5},
+ pages = {743 - 745},
+ year = {2002},
+}
+
+@article{2001-christie-irving,
+ author = {David A. Christie and Robert W. Irving},
+ title = {Sorting Strings by Reversals and by Transpositions},
+ journal = {SIAM Journal on Discrete Mathematics},
+ volume = {14},
+ number = {2},
+ year = {2001},
+ pages = {193 - 206},
+}
+

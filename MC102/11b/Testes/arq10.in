@@ -1,0 +1,464 @@
+% 47
+
+@article{2002Manlove,
+ author = {David F. Manlove},
+ title = {The Structure of Stable Marriage with Indifference},
+ journal = {Discrete Applied Mathematics},
+ volume = {122},
+ number = {3},
+ pages = {167 - 181},
+ year = {2002},
+}
+
+@article{2003BaiouBalinski,
+ title = {Admissions and Recruitment},
+ author = {Mourad Baiou and Michel Balinski},
+ journal = {The American Mathematical Monthly},
+ volume = {110},
+ number = {5},
+ pages = {386 - 399},
+ year = {2003},
+}
+
+@article{2003Fleiner,
+ author = {Tamas Fleiner},
+ title = {On the Stable B-matching Polytope},
+ journal = {Mathematical Social Sciences},
+ volume = {46},
+ number = {2},
+ pages = {149 - 158},
+ year = {2003},
+}
+
+@article{2003AnwarBahaj,
+ author = {Arif Anwar and AbuBakr Bahaj},
+ journal = {IEEE Transactions on Education},
+ title = {Student Project Allocation Using Integer Programming},
+ year = {2003},
+ volume = {46},
+ number = {3},
+ pages = {359 - 367},
+}
+
+@article{2003AharoniFleiner,
+ author = {Ron Aharoni and Tamas Fleiner},
+ title = {On a Lemma of Scarf},
+ journal = {Journal of Combinatorial Theory, Series B},
+ volume = {87},
+ number = {1},
+ year = {2003},
+ pages = {72 - 80},
+}
+
+@article{2003AlkanGale,
+ author = {Ahmet Alkan and David Gale},
+ title = {Stable Schedule Matching Under Revealed Preference},
+ journal = {Journal of Economic Theory},
+ volume = {112},
+ number = {2},
+ pages = {289 - 306},
+ year = {2003},
+}
+
+@article{2003DiasEtAl,
+ title = {The Stable Marriage Problem with Restricted Pairs},
+ author = {Vania M.F. Dias and Guilherme D. da Fonseca and Celina M. H. de Figueiredo and Jayme L. Szwarcfiter},
+ journal = {Theoretical Computer Science},
+ volume = {306},
+ number = {1},
+ pages = {391 - 405},
+ year = {2003},
+}
+
+@article{2003aHalldorssonEtAl,
+ title = {Approximability Results for Stable Marriage Problems with Ties},
+ author = {Magnus M. Halldorsson and Robert W. Irving and Kazuo Iwama and David F. Manlove and Shuichi Miyazaki and Yasufumi Morita and Sandy Scott},
+ journal = {Theoretical Computer Science},
+ volume = {306},
+ number = {3},
+ pages = {431 - 447},
+ year = {2003},
+}
+
+@article{2003HalldorssonEtAl,
+ author = {Magnus M. Halldorsson and Robert W. Irving and Kazuo Iwama and David F. Manlove and Shuichi Miyazaki and Yasufumi Morita and Sandy Scott},
+ title = {Approximability Results for Stable Marriage Problems with Ties},
+ journal = {Theoretical Computer Science},
+ volume = {306},
+ number = {3},
+ pages = {431 - 447},
+ year = {2003},
+}
+
+@article{2004MartinezEtAl,
+ title = {An Algorithm to Compute the Full Set of Many-to-many Stable Matchings},
+ author = {Ruth Martinez and Jordi Masso and Alejandro Neme and Jorge Oviedo},
+ journal = {Mathematical Social Sciences},
+ volume = {47},
+ number = {2},
+ pages = {187 - 210},
+ year = {2004},
+}
+
+@article{2004BaiouBalinski,
+ author = {Mourad Baiou and Michel Balinski},
+ title = {Student Admissions and Faculty Recruitment},
+ journal = {Theoretical Computer Science},
+ volume = {322},
+ number = {2},
+ pages = {245 - 265},
+ year = {2004},
+}
+
+@article{2006EcheniqueOviedo,
+ author = {Federico Echenique and Jorge Oviedo},
+ title = {A Theory of Stability in Many-to-many Matching Markets},
+ journal = {Theoretical Economics},
+ year = {2006},
+ volume = {1},
+ number = {2},
+ pages = {233 - 273},
+}
+
+@article{2006ErikssonEtAl,
+ title = {Three-dimensional Stable Matching with Cyclic Preferences},
+ author = {Kimmo Eriksson and Jonas Sjostrand and Pontus Strimling},
+ journal = {Mathematical Social Sciences},
+ volume = {52},
+ number = {1},
+ pages = {77 - 87},
+ year = {2006},
+}
+
+@article{2006AbdulkadirogluEtAl,
+ title = {Changing the Boston School Choice Mechanism},
+ author = {Atila Abdulkadiroglu and Parag Pathak and Alvin Roth and Tayfun Sonmez},
+ journal = {NBER Working Paper},
+ number = {11965},
+ year = {2006},
+}
+
+@article{2007BasalEtAl,
+ title = {Polynomial Time Algorithm for an Optimal Stable Assignment with Multiple Partners},
+ journal = {Theoretical Computer Science},
+ volume = {379},
+ number = {3},
+ pages = {317 - 328},
+ year = {2007},
+ author = {Vipul Bansal and Aseem Agrawal and Varun S. Malhotra},
+}
+
+@article{2007Balinski,
+ title = {Equitable Representation and Recruitment},
+ author = {Michel Balinski},
+ year = {2007},
+ journal = {Annals of Operations Research},
+ volume = {149},
+ number = {1},
+ pages = {27 - 36},
+}
+
+@article{2007Irving,
+ title = {The Cycle Roommates Problem: a Hard Case of Kidney Exchange},
+ author = {Robert W. Irving},
+ journal = {Information Processing Letters},
+ volume = {103},
+ number = {1},
+ pages = {1 - 4},
+ year = {2007},
+}
+
+@article{2007HalldorssonEtAl,
+ author = {Magnus M. Halldorsson and Kazuo Iwama and Shuichi Miyazaki and Hiroki Yanagisawa},
+ title = {Improved Approximation Results for the Stable Marriage Problem},
+ journal = {ACM Transactions on Algorithms},
+ volume = {3},
+ number = {3},
+ year = {2007},
+}
+
+@article{2007KavithaEtAl,
+ author = {Telikepalli Kavitha and Kurt Mehlhorn and Dimitrios Michail and Katarzyna E. Paluch},
+ title = {Strongly Stable Matchings in Time O(nm) and Extension to the Hospitals-residents Problem},
+ journal = {ACM Transactions on Algorithms},
+ volume = {3},
+ number = {2},
+ year = {2007},
+}
+
+@article{2007BiroCechlarova,
+ author = {Peter Biro and Katarina Cechlarova},
+ title = {Inapproximability of the Kidney Exchange Problem},
+ journal = {Information Processing Letters},
+ volume = {101},
+ number = {5},
+ pages = {199 - 202},
+ year = {2007},
+}
+
+@article{2007FleinerEtAl,
+ author = {Tamas Fleiner and Robert W. Irving and David F. Manlove},
+ title = {Efficient Algorithms for Generalized Stable Marriage and Roommates Problems},
+ journal = {Theoretical Computer Science},
+ volume = {381},
+ number = {3},
+ pages = {162 - 176},
+ year = {2007},
+}
+
+@article{2007AbrahamEtAl,
+ author = {David J. Abraham and Robert W. Irving and David F. Manlove},
+ title = {Two Algorithms for the Student-Project Allocation Problem},
+ journal = {Journal of Discrete Algorithms},
+ volume = {5},
+ number = {1},
+ pages = {73 - 90},
+ year = {2007},
+}
+
+@article{2007BaiouBalinski,
+ author = {Mourad Baiou and Michel Balinski},
+ title = {Characterizations of the Optimal Stable Allocation Mechanism},
+ journal = {Operations Research Letters},
+ volume = {35},
+ number = {3},
+ pages = {392 - 402},
+ year = {2007},
+}
+
+@article{2008KojimaUnver,
+ author = {Fuhito Kojima and M. Utku Unver},
+ year = {2008},
+ journal = {International Journal of Game Theory},
+ volume = {36},
+ number = {4},
+ title = {Random Paths to Pairwise Stability in Many-to-many Matching Problems: a Study on Market Equilibration},
+ pages = {473 - 488},
+}
+
+@article{2008PerachEtAl,
+ title = {A Stable Matching Model with an Entrance Criterion Applied to the Assignment of Students to Dormitories at the Technion},
+ author = {Nitsan Perach and Julia Polak and Uriel G. Rothblum},
+ year = {2008},
+ journal = {International Journal of Game Theory},
+ volume = {36},
+ number = {4},
+ pages = {519 - 535},
+}
+
+@article{2008IrvingManlove,
+ title = {Approximation Algorithms for Hard Variants of the Stable Marriage and Hospitals/residents Problems},
+ author = {Robert W. Irving and David F. Manlove},
+ year = {2008},
+ journal = {Journal of Combinatorial Optimization},
+ volume = {16},
+ pages = {279 - 292},
+}
+
+@article{2008BiroEtAl,
+ author = {Peter Biro and Katarina Cechlarova and Tamas Fleiner},
+ title = {The Dynamics of Stable Matchings and Half-matchings for the Stable Marriage and Roommates Problems},
+ year = {2008},
+ journal = {International Journal of Game Theory},
+ volume = {36},
+ number = {4},
+ pages = {333 - 352},
+}
+
+@article{2008AbrahamEtAl,
+ author = {David J. Abraham and Ariel Levavi and David F. Manlove and Gregg O'Malley},
+ title = {The Stable Roommates Problem with Globally Ranked Pairs},
+ journal = {Internet Mathematics},
+ volume = {5},
+ number = {4},
+ pages = {493 - 515},
+ year = {2008},
+}
+
+@article{2008IrvingEtAl,
+ title = {The Stable Marriage Problem with Master Preference Lists},
+ journal = {Discrete Applied Mathematics},
+ volume = {156},
+ number = {15},
+ pages = {2959 - 2977},
+ year = {2008},
+ author = {Robert W. Irving and David F. Manlove and Sandy Scott},
+}
+
+@article{2008ManloveMalley,
+ author = {David F. Manlove and Gregg O'Malley},
+ title = {Student-Project Allocation with Preferences over Projects},
+ journal = {Journal of Discrete Algorithms},
+ volume = {6},
+ number = {4},
+ pages = {553 - 560},
+ year = {2008},
+}
+
+@article{2008Ostrovsky,
+ title = {Stability in Supply Chain Networks},
+ author = {Michael Ostrovsky},
+ journal = {The American Economic Review},
+ volume = {98},
+ number = {3},
+ pages = {897 - 923},
+ year = {2008},
+}
+
+@article{2010BorbelovaCechlarova,
+ author = {Viera Borbel’ova and Katarína Cechlarova},
+ title = {Rotations in the Stable-matching Problem},
+ journal = {Theoretical Computer Science},
+ volume = {411},
+ number = {16},
+ pages = {1750 - 1762},
+ year = {2010},
+}
+
+@article{2010DeanMunshi,
+ author = {Brian C. Dean and Siddharth Munshi},
+ year = {2010},
+ journal = {Algorithmica},
+ volume = {58},
+ title = {Faster Algorithms for Stable Allocation Problems},
+ pages = {59 - 81},
+}
+
+@article{2010SngManlove,
+ author = {Colin Sng and David F. Manlove},
+ title = {Popular Matchings in the Weighted Capacitated House Allocation Problem},
+ journal = {Journal of Discrete Algorithms},
+ volume = {8},
+ number = {2},
+ pages = {102 - 116},
+ year = {2010},
+}
+
+@article{2010BiroEtAl,
+ author = {Peter Biro and Tamas Fleiner and Robert W. Irving and David F. Manlove},
+ title = {The College Admissions Problem with Lower and Common Quotas},
+ journal = {Theoretical Computer Science},
+ volume = {411},
+ number = {35},
+ pages = {3136 - 3153},
+ year = {2010},
+}
+
+@article{2010BiroFleiner,
+ author = {Peter Biro and Tamas Fleiner},
+ title = {The Integral Stable Allocation Problem on Graphs},
+ journal = {Discrete Optimization},
+ volume = {7},
+ number = {2},
+ pages = {64 - 73},
+ year = {2010},
+}
+
+@article{2010BiroEtAl_b,
+ title = {Size versus Stability in the Marriage Problem},
+ journal = {Theoretical Computer Science},
+ volume = {411},
+ number = {16},
+ pages = {1828 - 1841},
+ year = {2010},
+ author = {Peter Biro and David F. Manlove and Shubham Mittal},
+}
+
+@article{2010BiroEtAl,
+ author = {Peter Biro and Tamas Fleiner and Robert W. Irving and David F. Manlove},
+ title = {The College Admissions Problem with Lower and Common Quotas},
+ journal = {Theoretical Computer Science},
+ volume = {411},
+ number = {36},
+ pages = {3136 - 3153},
+ year = {2010},
+}
+
+@article{2010BiroFleiner,
+ author = {Peter Biro and Tamas Fleiner},
+ title = {The Integral Stable Allocation Problem on Graphs},
+ journal = {Discrete Optimization},
+ volume = {7},
+ number = {1},
+ pages = {64 - 73},
+ year = {2010},
+}
+
+@article{2010BiroEtAl,
+ author = {Peter Biro and David F. Manlove and Shubham Mittal},
+ title = {Size versus Stability in the Marriage Problem},
+ journal = {Theoretical Computer Science},
+ volume = {411},
+ number = {18},
+ pages = {1828 - 1841},
+ year = {2010},
+}
+
+@article{2010BiroMcDermid,
+ author = {Peter Biro and Eric McDermid},
+ year = {2010},
+ journal = {Algorithmica},
+ volume = {58},
+ number = {1},
+ title = {Three-Sided Stable Matchings with Cyclic Preferences},
+ pages = {5 - 18},
+}
+
+@article{2010McDermidManlove,
+ author = {Eric J. McDermid and David F. Manlove},
+ year = {2010},
+ journal = {Journal of Combinatorial Optimization},
+ volume = {19},
+ number = {3},
+ title = {Keeping Partners Together: Algorithmic Results for the Hospitals/residents Problem with Couples},
+ pages = {279 - 303},
+}
+
+@article{2010IrvingManlove,
+ author = {Robert W. Irving and David F. Manlove},
+ title = {Finding Large Stable Matchings},
+ journal = {J. Exp. Algorithmics},
+ volume = {14},
+ year = {2010},
+ pages = {2:1.2 - 2:1.30},
+} 
+
+@article{2010MarxSchlotter,
+ author = {Daniel Marx and Ildiko Schlotter},
+ title = {Parameterized Complexity and Local Search Approaches for the Stable Marriage Problem with Ties},
+ year = {2010},
+ journal = {Algorithmica},
+ volume = {58},
+ number = {1},
+ pages = {170 - 187},
+}
+
+@article{2011MoussaEl-Atta,
+ author = {Mahmoud I. Moussa and Ahmed H. Abu El-Atta},
+ title = {A Visual Implementation of Student Project Allocation},
+ journal = {International Journal of Computer Theory and Engineering},
+ pages = {178 - 184},
+ volume = {3},
+ year = {2011},
+}
+
+@article{2013Kiraly,
+ author = {Zoltan Kiraly},
+ title = {Linear Time Local Approximation Algorithm for Maximum Stable Marriage},
+ journal = {Algorithms},
+ volume = {6},
+ year = {2013},
+ number = {3},
+ pages = {471 - 484},
+}
+
+@article{2013KiralyPap,
+ title = {Stable Multicommodity Flows},
+ author = {Tamas Kiraly and Julia Pap},
+ journal = {Algorithms},
+ volume = {6},
+ number = {1},
+ pages = {161 - 168},
+ year = {2013},
+}
+

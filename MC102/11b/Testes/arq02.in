@@ -1,0 +1,31 @@
+% 3
+
+@article{1996-chen-skiena,
+ title = {Sorting with Fixed-Length Reversals},
+ journal = {Discrete Applied Mathematics},
+ volume = {71},
+ number = {3},
+ pages = {269 - 295},
+ year = {1996},
+ author = {Ting Chen and Steven S. Skiena},
+}
+
+@article{1997-heydari-sudborough,
+ author = {Mohammad H. Heydari and Ivan Hal Sudborough},
+ title = {On the Diameter of the Pancake Network},
+ journal = {Journal of Algorithms},
+ pages = {67 - 94},
+ year = {1997},
+ volume = {25},
+ number = {1},
+}
+
+@article{1996-chen-skiena,
+ title = {Sorting with Fixed-Length Reversals},
+ journal = {Discrete Applied Mathematics},
+ number = {3},
+ year = {1996},
+ pages = {269 - 295},
+ author = {Ting Chen and Steven S. Skiena},
+}
+

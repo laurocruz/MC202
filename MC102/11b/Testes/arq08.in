@@ -1,0 +1,238 @@
+% 24
+
+@article{1962GaleShapley,
+ title = {College Admissions and the Stability of Marriage},
+ author = {David Gale and Lloyd Stowell Shapley},
+ number = {1},
+ journal = {American Mathematical Monthly},
+ volume = {69},
+ year = {1962},
+ pages = {9 - 15},
+}
+
+@article{1970McvitieWilson,
+ author = {D. G. McVitie and Leslie Blackett Wilson},
+ title = {Stable Marriage Assignment for Unequal Sets},
+ journal = {BIT Numerical Mathematics},
+ pages = {295 - 309},
+ volume = {10},
+ year = {1970},
+}
+
+@article{2011Kiraly,
+ author = {Zoltan Kiraly},
+ title = {Better and Simpler Approximation Algorithms for the Stable Marriage Problem},
+ journal = {Algorithmica},
+ pages = {3 - 20},
+ volume = {60},
+ year = {2011},
+}
+
+@article{2011BiroMcDermid,
+ author = {Peter Biro and Eric McDermid},
+ title = {Matching with Sizes (or Scheduling with Processing Set Restrictions)},
+ journal = {Electronic Notes in Discrete Mathematics},
+ year = {2011},
+ volume = {36},
+ pages = {335 - 342},
+}
+
+@article{2012EirinakisEtAl,
+ author = {Pavlos Eirinakis and Dimitrios Magos and Ioannis Mourtos and Panayiotis Miliotis},
+ title = {Finding All Stable Pairs and Solutions to the Many-to-Many Stable Matching Problem},
+ journal = {INFORMS Journal on Computing},
+ volume = {24},
+ number = {2},
+ pages = {245 - 259},
+ year = {2012},
+}
+
+@article{2012KomornikEtAl,
+ title = {Stable Schedule Matchings},
+ author = {Vilmos Komornik and Zsolt Komornik and Christelle K. Viauroux},
+ year = {2012},
+ journal = {Acta Mathematica Hungarica},
+ volume = {135},
+ number = {2},
+ pages = {67 - 79},
+}
+
+@article{2012BiroEtAl,
+ author = {Peter Biro and Walter Kern and Daniel Paulusma},
+ year = {2012},
+ journal = {International Journal of Game Theory},
+ volume = {41},
+ number = {1},
+ title = {Computing Solutions for Matching Games},
+ pages = {75-90},
+}
+
+@article{2009KavithaNasre,
+ title = {Optimal Popular Matchings},
+ journal = {Discrete Applied Mathematics},
+ volume = {157},
+ number = {14},
+ pages = {3181 - 3186},
+ year = {2009},
+ author = {Telikepalli Kavitha and Meghana Nasre},
+}
+
+@article{2009FernauManlove,
+ author = {Henning Fernau and David F. Manlove},
+ title = {Vertex and Edge Covers with Clustering Properties: Complexity and Algorithms},
+ journal = {Journal of Discrete Algorithms},
+ volume = {7},
+ number = {2},
+ pages = {149 - 167},
+ year = {2009},
+}
+
+@article{2009IrvingEtAl,
+ author = {Robert W. Irving and David F. Manlove and Gregg O'Malley},
+ title = {Stable Marriage with Ties and Bounded Length Preference Lists},
+ journal = {Journal of Discrete Algorithms},
+ volume = {7},
+ number = {2},
+ pages = {213 - 219},
+ year = {2009},
+}
+
+@article{2013EirinakisEtAl,
+ author = {Pavlos Eirinakis and Dimitrios Magos and Ioannis Mourtos and Panayiotis Miliotis},
+ title = {Finding a Minimum-regret Many-to-many Stable Matching},
+ journal = {Optimization},
+ volume = {62},
+ number = {8},
+ pages = {1007 - 1018},
+ year = {2013},
+}
+
+@article{1971McVitieWilson,
+ title = {The Stable Marriage Problem},
+ author = {D. G. McVitie and Leslie Blackett Wilson},
+ journal = {Communications of the ACM},
+ volume = {14},
+ number = {7},
+ year = {1971},
+ pages = {486 - 490},
+}
+
+@article{1975Gardenfors,
+ author = {Peter Gardenfors},
+ title = {Match Making: Assignments Based on Bilateral Preferences},
+ journal = {Behavioral Science},
+ volume = {20},
+ number = {3},
+ pages = {166 - 173},
+ year = {1975},
+}
+
+@article{2004HalldorssonEtAl,
+ title = {Randomized Approximation of the Stable Marriage Problem},
+ author = {Magn{\'u}s M. Halld{\'o}rsson and Kazuo Iwama and Shuichi Miyazaki and Hiroki Yanagisawa},
+ journal = {Theoretical Computer Science},
+ volume = {325},
+ pages = {439 - 465},
+ year = {2004},
+}
+
+@article{2004BorosEtAl,
+ title = {Stable Matchings in Three-sided Systems with Cyclic Preferences},
+ author = {Endre Boros and Vladimir Gurvich and Steven Jaslar and Daniel Krasner},
+ journal = {Discrete Mathematics},
+ volume = {289},
+ number = {1},
+ pages = {1 - 10},
+ year = {2004},
+}
+
+@article{2004BaiouBalinski,
+ author = {Mourad Baiou and Michel Balinski},
+ title = {Student Admissions and Faculty Recruitment},
+ journal = {Theoretical Computer Science},
+ volume = {322},
+ number = {2},
+ pages = {245 - 265},
+ year = {2004},
+}
+
+@article{2005HarperEtAl,
+ author = {Paul R. Harper and Valter de Senna and Israel T. Vieira and Arjan K. Shahani},
+ title = {A Genetic Algorithm for the Project Assignment Problem},
+ journal = {Computers \& Operations Research},
+ volume = {32},
+ number = {5},
+ pages = {1255 - 1265},
+ year = {2005},
+}
+
+@article{2005RothEtAl,
+ title = {Pairwise Kidney Exchange},
+ author = {Alvin E. Roth and Tayfun Sonmez and M. Utku Unver},
+ journal = {Journal of Economic Theory},
+ volume = {125},
+ number = {2},
+ pages = {151 - 188},
+ year = {2005},
+}
+
+@article{1993HortonKilakos,
+ author = {Joseph Douglas Horton and Kyriakos Kilakos},
+ title = {Minimum Edge Dominating Sets},
+ journal = {SIAM Journal on Discrete Mathematics},
+ volume = {6},
+ number = {3},
+ pages = {375 - 387},
+ year = {1993},
+}
+
+@article{1993Kato,
+ title = {Complexity of the Sex-equal Stable Marriage Problem},
+ author = {Akiko Kato},
+ year = {1993},
+ journal = {Japan Journal of Industrial and Applied Mathematics},
+ volume = {10},
+ number = {1},
+ pages = {1 - 19},
+}
+
+@article{1994Irving,
+ author = {Robert W. Irving},
+ title = {Stable Marriage and Indifference},
+ journal = {Discrete Applied Mathematics},
+ volume = {48},
+ number = {3},
+ year = {1994},
+ pages = {261 - 272},
+}
+
+@article{2005CechlarovaManlove,
+ author = {Katarína Cechlarova and David F. Manlove},
+ title = {The Exchange-stable Marriage Problem},
+ journal = {Discrete Applied Mathematics},
+ volume = {152},
+ number = {3},
+ pages = {109 - 122},
+ year = {2005},
+}
+
+@article{2005DuckworthEtAl,
+ author = {William Duckworth and David F. Manlove and Michele Zito},
+ title = {On the Approximability of the Maximum Induced Matching Problem},
+ journal = {Journal of Discrete Algorithms},
+ volume = {3},
+ number = {1},
+ pages = {79 - 91},
+ year = {2005},
+}
+
+@article{2005AbdulkadirogluEtAl,
+ title = {The New York City High School Match},
+ author = {Atila Abdulkadiroglu and Parag A. Pathak and Alvin E. Roth},
+ journal = {The American Economic Review},
+ volume = {95},
+ number = {2},
+ pages = {364 - 367},
+ year = {2005},
+}
+

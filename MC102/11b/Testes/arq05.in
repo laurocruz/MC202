@@ -1,0 +1,96 @@
+% 10
+
+@article{2012t-bulteau-etal,
+ author = {Laurent Bulteau and Guillaume Fertin and Irena Rusu},
+ title = {Sorting by Transpositions is Difficult},
+ journal = {SIAM Journal on Computing},
+ year = {2012},
+ number = {3},
+ volume = {26},
+ pages = {1148 - 1180},
+}
+
+@article{2008-haynes-etal,
+ author = {Karmella A. Haynes and Marian L. Broderick and Adam D. Brown and Trevor L. Butner and James O. Dickson and W. Lance Harden and Lane H. Heard and Eric L. Jessen and Kelly J. Malloy and Brad J. Ogden and Sabriya Rosemond and Samantha Simpson and Erin Zwack and A. Malcolm Campbell and Todd T. Eckdahl and Laurie J. Heyer and Jeffrey L. Poet},
+ title = {Engineering Bacteria to Solve the Burnt Pancake Problem},
+ journal = {Journal of Biological Engineering},
+ pages = {1 - 12},
+ volume = {2},
+ year = {2008},
+}
+
+@article{2006-labarre,
+ author = {Anthony Labarre},
+ title = {New Bounds and Tractable Instances for the Transposition Distance},
+ journal = {IEEE/ACM Transactions on Computational Biology and Bioinformatics},
+ volume = {3},
+ number = {4},
+ year = {2006},
+ pages = {380 - 394},
+}
+
+@article{2013-chen,
+ author = {Xin Chen},
+ title = {On Sorting Unsigned Permutations by Double-Cut-and-Joins},
+ journal = {Journal of Combinatorial Optimization},
+ volume = {25},
+ number = {3},
+ year = {2013},
+ pages = {339 - 351},
+}
+
+@article{2012-chitturi-sudborough,
+ title = {Bounding Prefix Transposition Distance for Strings and Permutations},
+ author = {Bhadrachalam Chitturi and Ivan Hal Sudborough},
+ journal = {Theoretical Computer Science},
+ volume = {421},
+ pages = {15 - 24},
+ year = {2012},
+}
+
+@article{2008-rahman-etal,
+ author = {Atif Rahman and Swakkhar Shatabda and Masud Hasan},
+ title = {An Approximation Algorithm for Sorting by Reversals and Transpositions},
+ journal = {Journal of Discrete Algorithms},
+ volume = {6},
+ number = {3},
+ year = {2008},
+ pages = {449 - 457},
+}
+
+@article{2008-bender-etal,
+ author = {Michael A. Bender and Dongdong Ge and Simai He and Haodong Hu and Ron Y. Pinter and Steven S. Skiena and Firas Swidan},
+ title = {Improved Bounds on Sorting by Length-Weighted Reversals},
+ journal = {Journal of Computer and System Science},
+ volume = {74},
+ number = {5},
+ year = {2008},
+ pages = {744 - 774},
+}
+
+@article{2011-cibulka,
+ author = {Josef Cibulka},
+ title = {On Average and Highest Number of Flips in Pancake Sorting},
+ journal = {Theoretical Computer Science},
+ volume = {412},
+ year = {2011},
+ pages = {822 - 834},
+}
+
+@article{2007-tannier-etal,
+ author = {Eric Tannier and Anen Bergeron and Marie-France Sagot},
+ title = {Advances on Sorting by Reversals},
+ journal = {Discrete Applied Mathematics},
+ volume = {155},
+ year = {2007},
+ pages = {881 - 888},
+}
+
+@article{2010-sharmin-etal,
+ author = {Mahfuza Sharmin and Rukhsana Yeasmin and Masud Hasan and Atif Rahman and Mohammad Sohel Rahman},
+ title = {Pancake Flipping with Two Spatulas},
+ journal = {Electronic Notes in Discrete Mathematics},
+ pages = {231 - 238},
+ year = {2010},
+}
+

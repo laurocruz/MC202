@@ -50,6 +50,8 @@ Erro InArv(char *infixa, ArvBin *arv) {
    devolve o código e a posição na cadeia de entrada onde o erro foi
    encontrado.  */
 	Erro final;
+	
+	*arv = MALLOC(sizeof(NoArvBin));
 
 	ant = ' '; /* COmo não há anterior, inicia-se valendo ' ' */
 	
@@ -109,7 +111,8 @@ int car_inv() {
 
 Erro Expressao(ArvBin *arv) {
 /* Processa uma expressão da cadeia de entrada.  */
-	ArvBin noEsq = NULL, noDir = NULL;
+	ArvBin noEsq = MALLOC(sizeof(NoArvBin));
+	ArvBin noDir;
 	char op;
 	Erro erroE = Termo(&noEsq);
 	
@@ -127,12 +130,11 @@ Erro Expressao(ArvBin *arv) {
 			if (erroE.codigoErro != EXPR_VALIDA)
 				return erroE;
 
-			*arv = MALLOC(sizeof(NoArvBin));
 			(*arv)->info = op;
 			(*arv)->esq = noEsq;
 			(*arv)->dir = noDir;
 		}
-	} else *arv = noEsq;
+	} else arv = &noEsq;
 	
 	return resCorreto;
   
@@ -160,12 +162,12 @@ Erro Termo(ArvBin *arv) {
 			if (erroT.codigoErro != EXPR_VALIDA)
 				return erroT;
 			
-			*arv = MALLOC(sizeof(NoArvBin));
 			(*arv)->info = op;
 			(*arv)->esq = noEsq;
 			(*arv)->dir = noDir;
 		}
-	} else *arv = noEsq;
+		
+	} else arv = &noEsq;
 	
 	return resCorreto;
 
@@ -174,7 +176,8 @@ Erro Termo(ArvBin *arv) {
 
 Erro Fator(ArvBin *arv) {
 /* Processa um fator da cadeia de entrada.  */
-	ArvBin noEsq = NULL, noDir = NULL;
+	ArvBin noEsq = MALLOC(sizeof(NoArvBin));
+	ArvBin noDir;
 	Erro erroF = Primario(&noEsq);
 	
 	if (erroF.codigoErro != EXPR_VALIDA)
@@ -192,11 +195,11 @@ Erro Fator(ArvBin *arv) {
 		if (erroF.codigoErro != EXPR_VALIDA)
 			return erroF;
 		
-		*arv = MALLOC(sizeof(NoArvBin));
 		(*arv)->info = '^';
 		(*arv)->esq = noEsq;
 		(*arv)->dir = noDir;
-	} else *arv = noEsq;
+		
+	} else arv = &noEsq;
   
 	return resCorreto;
 } /* Fator */
@@ -218,16 +221,16 @@ Erro Primario(ArvBin *arv) {
 		if (eLetra())
 			return montaErro(OPERADOR_ESPERADO, indIn);
 			
-		*arv = MALLOC(sizeof(NoArvBin));
 		(*arv)->esq = (*arv)->dir = NULL;
 		(*arv)->info = let;
 		
 	} else if (in[indIn] == '(') {
 		pulaEspacoIn();
-		/* Verifica se não hÃá operando ou operador após abrir o parêntese */
+		/* Verifica se não há operando ou operador após abrir o parêntese */
 		if (in[indIn] == '\0' || in[indIn] == ')')
 			return montaErro(OPERANDO_ESPERADO, indIn);
 		
+		no = MALLOC(sizeof(NoArvBin));
 		erroP = Expressao(&no);
 		
 		if (erroP.codigoErro != EXPR_VALIDA)
@@ -253,7 +256,6 @@ Erro Primario(ArvBin *arv) {
 		if (erroP.codigoErro != EXPR_VALIDA)
 			return erroP;
 
-		*arv = MALLOC(sizeof(NoArvBin));
 		(*arv)->info = unr;
 		(*arv)->esq = NULL;
 		(*arv)->dir = no;

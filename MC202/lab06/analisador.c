@@ -11,6 +11,7 @@
  * binárias e seus percursos.
  */
 
+#include <stdio.h>
 #include "analisador.h"
 #include <stdlib.h>
 #include <ctype.h>
@@ -50,8 +51,6 @@ Erro InArv(char *infixa, ArvBin *arv) {
    devolve o código e a posição na cadeia de entrada onde o erro foi
    encontrado.  */
 	Erro final;
-	
-	*arv = MALLOC(sizeof(NoArvBin));
 
 	ant = ' '; /* COmo não há anterior, inicia-se valendo ' ' */
 	
@@ -111,63 +110,71 @@ int car_inv() {
 
 Erro Expressao(ArvBin *arv) {
 /* Processa uma expressão da cadeia de entrada.  */
-	ArvBin noEsq = MALLOC(sizeof(NoArvBin));
-	ArvBin noDir;
-	char op;
-	Erro erroE = Termo(&noEsq);
-	
+	ArvBin exclude;
+	Erro erroE;
+
+	printf("EXPRESSÂO\n\n");
+	(*arv)->esq = MALLOC(sizeof(NoArvBin));
+	printf("ALOCOU (ACHO)\n\n");
+	erroE = Termo(&((*arv)->esq));
+
 	if (erroE.codigoErro != EXPR_VALIDA)
 		return erroE;
-	
+
 	if (in[indIn] == '+' || in[indIn] == '-') {
 		while (in[indIn] == '+' || in[indIn] == '-') {
-			op = in[indIn];
+			(*arv)->info = in[indIn];
 
 			pulaEspacoIn();
-			
-			erroE = Termo(&noDir);
-			
+
+			(*arv)->dir = MALLOC(sizeof(NoArvBin));
+			erroE = Termo(&((*arv)->dir));
+
 			if (erroE.codigoErro != EXPR_VALIDA)
 				return erroE;
-
-			(*arv)->info = op;
-			(*arv)->esq = noEsq;
-			(*arv)->dir = noDir;
 		}
-	} else arv = &noEsq;
+	} else {
+		exclude = *arv;
+		arv = &((*arv)->esq);
+		FREE(exclude);
+	}
 	
 	return resCorreto;
-  
+
 } /* Expressao */
 
 
 Erro Termo(ArvBin *arv) {
 /* Processa um termo da cadeia de entrada.  */
-	ArvBin noEsq = NULL, noDir = NULL;
-	char op;
-	Erro erroT = Fator(&noEsq);
+	ArvBin exclude;
+	Erro erroT;
+	
+	printf("TERMO\n\n");
+	(*arv)->esq = MALLOC(sizeof(NoArvBin));
+	
+	erroT = Fator(&((*arv)->esq));
 	
 	if (erroT.codigoErro != EXPR_VALIDA)
 		return erroT;
 	
-	
 	if (in[indIn] == '*' || in[indIn] == '/') {
 		while (in[indIn] == '*' || in[indIn] == '/') {
-			op = in[indIn];
-			
+			(*arv)->info = in[indIn];
+
 			pulaEspacoIn();
-			
-			erroT = Fator(&noDir);
-			
+
+			(*arv)->dir = MALLOC(sizeof(NoArvBin));
+			erroT = Fator(&((*arv)->dir));
+
 			if (erroT.codigoErro != EXPR_VALIDA)
 				return erroT;
-			
-			(*arv)->info = op;
-			(*arv)->esq = noEsq;
-			(*arv)->dir = noDir;
+				
 		}
-		
-	} else arv = &noEsq;
+	} else {
+		exclude = *arv;
+		arv = &((*arv)->esq);
+		FREE(exclude);
+	}
 	
 	return resCorreto;
 
@@ -176,9 +183,13 @@ Erro Termo(ArvBin *arv) {
 
 Erro Fator(ArvBin *arv) {
 /* Processa um fator da cadeia de entrada.  */
-	ArvBin noEsq = MALLOC(sizeof(NoArvBin));
-	ArvBin noDir;
-	Erro erroF = Primario(&noEsq);
+	ArvBin exclude;
+	Erro erroF;
+	
+	printf("FATOR\n\n");
+	(*arv)->esq = MALLOC(sizeof(NoArvBin));
+	
+	erroF = Primario(&((*arv)->esq));
 	
 	if (erroF.codigoErro != EXPR_VALIDA)
 		return erroF;
@@ -188,18 +199,21 @@ Erro Fator(ArvBin *arv) {
 		return montaErro(CARACTERE_INVALIDO, indIn);
 		
 	if (in[indIn] == '^') {
+		(*arv)->info = '^';
+		
 		pulaEspacoIn();
 		
-		erroF = Fator(&noDir);
+		(*arv)->dir = MALLOC(sizeof(NoArvBin));
+		erroF = Fator(&((*arv)->dir));
 		
 		if (erroF.codigoErro != EXPR_VALIDA)
 			return erroF;
 		
-		(*arv)->info = '^';
-		(*arv)->esq = noEsq;
-		(*arv)->dir = noDir;
-		
-	} else arv = &noEsq;
+	} else {
+		exclude = *arv;
+		arv = &((*arv)->esq);
+		FREE(exclude);
+	}
   
 	return resCorreto;
 } /* Fator */
@@ -208,12 +222,13 @@ Erro Fator(ArvBin *arv) {
 Erro Primario(ArvBin *arv) {
 /* Processa um  primário da cadeia de entrada.  */
 	Erro erroP;
-	ArvBin no;
 	char unr, let;
 	
 	if (in[indIn] == ' ') pulaEspacoIn();
 
+	printf("PRIMARIO: ");
 	if (eLetra()) {
+		printf("LETRA\n\n");
 		let = in[indIn];
 		pulaEspacoIn();
 		
@@ -222,17 +237,17 @@ Erro Primario(ArvBin *arv) {
 			return montaErro(OPERADOR_ESPERADO, indIn);
 			
 		(*arv)->esq = (*arv)->dir = NULL;
-		(*arv)->info = let;
+		(*arv)->info = let; 
 		
 	} else if (in[indIn] == '(') {
+		printf("PARÊNTESE\n\n");
 		pulaEspacoIn();
 		/* Verifica se não há operando ou operador após abrir o parêntese */
 		if (in[indIn] == '\0' || in[indIn] == ')')
 			return montaErro(OPERANDO_ESPERADO, indIn);
 		
-		no = MALLOC(sizeof(NoArvBin));
-		erroP = Expressao(&no);
-		
+		erroP = Expressao(arv);
+
 		if (erroP.codigoErro != EXPR_VALIDA)
 			return erroP;
 		
@@ -244,6 +259,7 @@ Erro Primario(ArvBin *arv) {
 		
 	/* Verifica se é operador unário */
 	} else if ((in[indIn] == '+' || in[indIn] == '-') && (ant == ' ' || ant == '(')) {
+		printf("UNÁRIO\n\n");
 		if (in[indIn] == '+') unr = '&';
 		else unr = '~';
 		
@@ -251,14 +267,16 @@ Erro Primario(ArvBin *arv) {
 		/* Verifica se o operador realmente é unário ou se é binário, mas falta um operando */
 		if (!eLetra() && in[indIn] != '(')
 			return montaErro(OPERANDO_ESPERADO, indIn);
-		erroP = Termo(&no);
+		
+		(*arv)->esq = NULL;
+		(*arv)->info = unr;
+		
+		(*arv)->dir = MALLOC(sizeof(NoArvBin));
+		
+		erroP = Termo(&((*arv)->dir));
 		
 		if (erroP.codigoErro != EXPR_VALIDA)
 			return erroP;
-
-		(*arv)->info = unr;
-		(*arv)->esq = NULL;
-		(*arv)->dir = no;
 		
 	} else if (in[indIn] == '+' || in[indIn] == '-' || in[indIn] == '*' || 
 			   in[indIn] == '/' || in[indIn] == '^' || in[indIn] == ')' || 

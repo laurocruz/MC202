@@ -3,7 +3,7 @@
  * MC202 - Turma F                                               *
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br *
  * Laboratório 06 - Análise sintática e Árvores - analisador.c   *
- * Last modified: *
+ * Last modified: 19-10-14                                       *
  *****************************************************************/
 
 /* 
@@ -11,7 +11,6 @@
  * binárias e seus percursos.
  */
 
-#include <stdio.h>
 #include "analisador.h"
 #include <stdlib.h>
 #include <ctype.h>
@@ -23,6 +22,8 @@ char ant; /* Armazena o caractere da entrada anterior ao que in está apontando *
 
 char *in;  /* Cadeia e índice para expressão infixa (entrada). */
 int indIn;
+
+char *Gpos, *Gpre; /* Variáveis para armazenar a posição dos vetores pos e pre */
 
 Erro resCorreto = {EXPR_VALIDA,0}; /* resultado correto */
 
@@ -52,7 +53,7 @@ Erro InArv(char *infixa, ArvBin *arv) {
    encontrado.  */
 	Erro final;
 
-	ant = ' '; /* COmo não há anterior, inicia-se valendo ' ' */
+	ant = ' '; /* Como não há anterior, inicia-se valendo ' ' */
 	
 	in = infixa;
 	indIn = 0;
@@ -62,6 +63,8 @@ Erro InArv(char *infixa, ArvBin *arv) {
 	/* Não encontrando nenhum caractere na entrada, é uma cadeia de bracos */
 	if (in[indIn] == '\0')
 		return montaErro(CADEIA_DE_BRANCOS, 0);
+	
+	*arv = MALLOC(sizeof(NoArvBin));
 
 	final = Expressao(arv);
 	
@@ -110,12 +113,13 @@ int car_inv() {
 
 Erro Expressao(ArvBin *arv) {
 /* Processa uma expressão da cadeia de entrada.  */
-	ArvBin exclude;
+	int count = 0;
+	ArvBin exclude, aux;
 	Erro erroE;
 
-	printf("EXPRESSÂO\n\n");
 	(*arv)->esq = MALLOC(sizeof(NoArvBin));
-	printf("ALOCOU (ACHO)\n\n");
+	
+	/* Inicia-se chamando o filho da esquerda do no apontado por *arv */
 	erroE = Termo(&((*arv)->esq));
 
 	if (erroE.codigoErro != EXPR_VALIDA)
@@ -123,19 +127,30 @@ Erro Expressao(ArvBin *arv) {
 
 	if (in[indIn] == '+' || in[indIn] == '-') {
 		while (in[indIn] == '+' || in[indIn] == '-') {
+			/* Se a repetição ocorrer por mais de uma vez, será criado um nó superior, e o atual 
+			 * nó apontado por *arv será seu filho esquerdo, e *arv apontará para o novo pai */
+			if (count > 0) {
+				aux = MALLOC(sizeof(NoArvBin));
+				aux->esq = *arv;
+				*arv = aux;
+			}
 			(*arv)->info = in[indIn];
 
 			pulaEspacoIn();
 
+			/* Agora chama-se o filho direito */
 			(*arv)->dir = MALLOC(sizeof(NoArvBin));
 			erroE = Termo(&((*arv)->dir));
 
 			if (erroE.codigoErro != EXPR_VALIDA)
 				return erroE;
+			
+			count++;
 		}
+	/* Se não houver operador + ou -, o nó é excluido */
 	} else {
 		exclude = *arv;
-		arv = &((*arv)->esq);
+		*arv = (*arv)->esq;
 		FREE(exclude);
 	}
 	
@@ -146,12 +161,12 @@ Erro Expressao(ArvBin *arv) {
 
 Erro Termo(ArvBin *arv) {
 /* Processa um termo da cadeia de entrada.  */
-	ArvBin exclude;
+	int count = 0;
+	ArvBin exclude, aux;
 	Erro erroT;
 	
-	printf("TERMO\n\n");
 	(*arv)->esq = MALLOC(sizeof(NoArvBin));
-	
+	/* Inicia-se chamando o filho da esquerda do no apontado por *arv */
 	erroT = Fator(&((*arv)->esq));
 	
 	if (erroT.codigoErro != EXPR_VALIDA)
@@ -159,20 +174,29 @@ Erro Termo(ArvBin *arv) {
 	
 	if (in[indIn] == '*' || in[indIn] == '/') {
 		while (in[indIn] == '*' || in[indIn] == '/') {
+			/* Se a repetição ocorrer por mais de uma vez, será criado um nó superior, e o atual 
+			 * nó apontado por *arv será seu filho esquerdo, e *arv apontará para o novo pai */
+			if (count > 0) {
+				aux = MALLOC(sizeof(NoArvBin));
+				aux->esq = *arv;
+				*arv = aux;
+			}
 			(*arv)->info = in[indIn];
 
 			pulaEspacoIn();
 
+			/* Agora chama-se o filho direito */
 			(*arv)->dir = MALLOC(sizeof(NoArvBin));
 			erroT = Fator(&((*arv)->dir));
 
 			if (erroT.codigoErro != EXPR_VALIDA)
 				return erroT;
-				
+			count++;
 		}
+	/* Se não houver operador * ou /, o nó é excluido */
 	} else {
 		exclude = *arv;
-		arv = &((*arv)->esq);
+		*arv = (*arv)->esq;
 		FREE(exclude);
 	}
 	
@@ -186,9 +210,8 @@ Erro Fator(ArvBin *arv) {
 	ArvBin exclude;
 	Erro erroF;
 	
-	printf("FATOR\n\n");
 	(*arv)->esq = MALLOC(sizeof(NoArvBin));
-	
+	/* Inicia-se chamando o filho da esquerda do no apontado por *arv */
 	erroF = Primario(&((*arv)->esq));
 	
 	if (erroF.codigoErro != EXPR_VALIDA)
@@ -203,15 +226,17 @@ Erro Fator(ArvBin *arv) {
 		
 		pulaEspacoIn();
 		
+		/* Agora chama-se o filho direito */
 		(*arv)->dir = MALLOC(sizeof(NoArvBin));
 		erroF = Fator(&((*arv)->dir));
 		
 		if (erroF.codigoErro != EXPR_VALIDA)
 			return erroF;
 		
+	/* Se não houver operador ^, o nó é excluido */
 	} else {
 		exclude = *arv;
-		arv = &((*arv)->esq);
+		*arv = (*arv)->esq;
 		FREE(exclude);
 	}
   
@@ -226,9 +251,7 @@ Erro Primario(ArvBin *arv) {
 	
 	if (in[indIn] == ' ') pulaEspacoIn();
 
-	printf("PRIMARIO: ");
 	if (eLetra()) {
-		printf("LETRA\n\n");
 		let = in[indIn];
 		pulaEspacoIn();
 		
@@ -240,7 +263,6 @@ Erro Primario(ArvBin *arv) {
 		(*arv)->info = let; 
 		
 	} else if (in[indIn] == '(') {
-		printf("PARÊNTESE\n\n");
 		pulaEspacoIn();
 		/* Verifica se não há operando ou operador após abrir o parêntese */
 		if (in[indIn] == '\0' || in[indIn] == ')')
@@ -259,7 +281,6 @@ Erro Primario(ArvBin *arv) {
 		
 	/* Verifica se é operador unário */
 	} else if ((in[indIn] == '+' || in[indIn] == '-') && (ant == ' ' || ant == '(')) {
-		printf("UNÁRIO\n\n");
 		if (in[indIn] == '+') unr = '&';
 		else unr = '~';
 		
@@ -293,26 +314,28 @@ Erro Primario(ArvBin *arv) {
 
 void ArvPre(ArvBin arv, char *pre) {
  /* Produz a representação pré-fixa a partir da Árvore. */
+	Gpre = pre;
+	
 	while (arv != NULL) {
-		*pre = arv->info;
-		pre++;
-		ArvPre(arv->esq, pre);
+		*Gpre = arv->info;
+		Gpre++;
+		ArvPre(arv->esq, Gpre);
 		arv = arv->dir;
 	}
-	
-	*pre = '\0';
+	*Gpre = '\0';
 }
 
 void ArvPos(ArvBin arv, char *pos) {
 /* Produz a representação pós-fixa a partir da Árvore. */  
+	Gpos = pos;
+
 	if (arv != NULL) {
-		ArvPos(arv->esq, pos);
-		ArvPos(arv->dir, pos);
-		*pos = arv->info;
-		pos++;
+		ArvPos(arv->esq, Gpos);
+		ArvPos(arv->dir, Gpos);
+		*Gpos = arv->info;
+		Gpos++;
 	}
-	
-	*pos = '\0';
+	*Gpos = '\0';
 }
 
 

@@ -106,13 +106,10 @@ int main() {
     erro = InArv(in,&arv);
     printf("Infixa: %s\n", in);
     if (erro.codigoErro == EXPR_VALIDA) {
-		printf("PREEEEEEEEEEEEEE\n\n");
-		printf("XXXXXXXX %c XXXXXXX\n\n", arv->esq->info);
-		despejaArv(arv); 
       ArvPre(arv,res);
-		printf("DESPEJAAAAAAAAAAA\n\n");
+      /* para ser usado em depuração: basta descomentar */
+      /* despejaArv(arv); */
       printf("Prefixa: %s\n",res);
-	  printf("POOOOOOOOOOOOOOOOOOOOS\n\n");
       ArvPos(arv,res);
       printf("Posfixa: %s\n\n",res);
     }

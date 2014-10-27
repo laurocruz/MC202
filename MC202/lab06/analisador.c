@@ -255,7 +255,9 @@ Erro Primario(ArvBin *arv) {
 	
 	if (in[indIn] == ' ') pulaEspacoIn();
 
+	/* Encontra um operando */
 	if (eLetra()) {
+		/* Armazena o valor do operando para poder se locomover no vetor */
 		let = in[indIn];
 		pulaEspacoIn();
 		
@@ -267,12 +269,15 @@ Erro Primario(ArvBin *arv) {
 		(*arv)->esq = (*arv)->dir = NULL;
 		(*arv)->info = let; 
 		
+	/* Encontra um abre parênteses */
 	} else if (in[indIn] == '(') {
 		pulaEspacoIn();
 		/* Verifica se não há operando ou operador após abrir o parêntese */
-		if (in[indIn] == '\0' || in[indIn] == ')')
+		if (in[indIn] == '\0' || in[indIn] == ')') /* Se não houver, falta operando */
 			return montaErro(OPERANDO_ESPERADO, indIn);
 		
+		/* Dentro dos parênteses deve haver uma expressão "separada" do resto, já que ela tem
+		 * prioridade */
 		erroP = Expressao(arv);
 
 		if (erroP.codigoErro != EXPR_VALIDA)
@@ -326,10 +331,10 @@ void ArvPre(ArvBin arv, char *pre) {
 	Gpre = pre;
 	
 	while (arv != NULL) {
-		*Gpre = arv->info;
+		*Gpre = arv->info; /* Visita a raiz da subárvore */
 		Gpre++;
-		ArvPre(arv->esq, Gpre);
-		arv = arv->dir;
+		ArvPre(arv->esq, Gpre); /* Chama a subárvore esquerda */
+		arv = arv->dir; /* Chama a subárvore direita */
 	}
 	*Gpre = '\0';
 }
@@ -339,9 +344,9 @@ void ArvPos(ArvBin arv, char *pos) {
 	Gpos = pos;
 
 	if (arv != NULL) {
-		ArvPos(arv->esq, Gpos);
-		ArvPos(arv->dir, Gpos);
-		*Gpos = arv->info;
+		ArvPos(arv->esq, Gpos); /* Chama a subárvore esquerda */
+		ArvPos(arv->dir, Gpos); /* Chama a subárvore direita */
+		*Gpos = arv->info; /* Visita a raiz da subárvore */
 		Gpos++;
 	}
 	*Gpos = '\0';

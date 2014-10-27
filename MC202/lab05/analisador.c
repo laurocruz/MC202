@@ -49,8 +49,9 @@ Erro InPos(char *infixa, char *posfixa) {
    erro foi encontrado.  */
 	Erro final;
 
-	ant = ' '; /* COmo não há anterior, inicia-se valendo ' ' */
+	ant = ' '; /* Como não há anterior, inicia-se valendo ' ' */
 	
+	/* Armazenando os vetores de caracteres passados como parâmetro */
 	in = infixa;
 	indIn = 0;
 	
@@ -65,6 +66,8 @@ Erro InPos(char *infixa, char *posfixa) {
 
 	final = Expressao();
 	
+	/* Caso retorne para essa função considerando a expressão correta e sem chegar ao fim do vetor
+	 * significa que está faltando um operando na expressão */
 	if ((*in != '\0') && (final.codigoErro == EXPR_VALIDA))
 		return montaErro(OPERADOR_ESPERADO, indIn);
 	
@@ -79,8 +82,9 @@ Erro InPos(char *infixa, char *posfixa) {
 /*************************************************************/
 
 void pulaEspacoIn() {
+	/* Pula os espaços em branco */
 	if (*in != ' ') 
-		ant = *in;
+		ant = *in; /* Armazena o valor do caractere anterior */
 	
 	in++;
 	indIn++;
@@ -92,6 +96,7 @@ void pulaEspacoIn() {
 }
 
 int eLetra() {
+	/* Verifica se o caractere é uma letra */
 	return ((toupper(*in) >= 'A') && (toupper(*in) <= 'Z'));
 }
 
@@ -107,6 +112,7 @@ Erro montaErro(int codigo, int posicao) {
 } /* montaErro */
 
 int car_inv() {
+	/* Verifica se o caractere é inválido */
 	return (*in != '+' && *in != '-' && 
 			*in != '*' && *in != '/' && 
 			*in != '^' && *in != '\0'&&
@@ -117,21 +123,26 @@ int car_inv() {
 Erro Expressao() {
 /* Processa uma expressão da cadeia de entrada.  */
 	char op;
-	Erro erroE = Termo();
+	Erro erroE = Termo(); 
+	/* A expressão é um termo ou um conjunto de termos separados por + e/ou - */
 	
 	if (erroE.codigoErro != EXPR_VALIDA)
 		return erroE;
 	
+	
 	while (*in == '+' || *in == '-') {
+		/* Armazenando o operador para poder deslocar no vetor */
 		op = *in;
 
 		pulaEspacoIn();
 		
+		/* Verifica o próximo termo */
 		erroE = Termo();
 		
 		if (erroE.codigoErro != EXPR_VALIDA)
 			return erroE;
 
+		/* Armazena o operador no vetor pos e pula uma posição */
 		*pos = op;
 		pos++;
 		indPos++;
@@ -146,20 +157,24 @@ Erro Termo() {
 /* Processa um termo da cadeia de entrada.  */
 	char op;
 	Erro erroT = Fator();
+	/* O termo é um fator ou um conjunto de fatores separados por * e/ou / */
 	
 	if (erroT.codigoErro != EXPR_VALIDA)
 		return erroT;
 	
 	while ((*in == '*') || (*in == '/')) {
+		/* Armazenando o operador para poder se descolar no vetor */
 		op = *in;
 		
 		pulaEspacoIn();
 		
+		/* Verifica o próximo fator */
 		erroT = Fator();
 		
 		if (erroT.codigoErro != EXPR_VALIDA)
 			return erroT;
 		
+		/* Armazena o operando no vetor da posfixa e pula uma posição */
 		*pos = op;
 		pos++;
 		indPos++;
@@ -173,6 +188,7 @@ Erro Termo() {
 Erro Fator() {
 /* Processa um fator da cadeia de entrada.  */
 	Erro erroF = Primario();
+	/* O fator é um primário ou um primario elevado por outro fator */
 	
 	if (erroF.codigoErro != EXPR_VALIDA)
 		return erroF;
@@ -184,11 +200,13 @@ Erro Fator() {
 	if (*in == '^') {
 		pulaEspacoIn();
 		
+		/* Verifica o próximo fator */
 		erroF = Fator();
 		
 		if (erroF.codigoErro != EXPR_VALIDA)
 			return erroF;
 		
+		/* Armazena o operando na posfixa e pula uma posição */
 		*pos = '^';
 		
 		pos++;
@@ -206,27 +224,33 @@ Erro Primario() {
 	Erro erroP;
 	char unr, let;
 	
+	/* Pula os espaçõs em branco caso existam */
 	if (*in == ' ')
 		pulaEspacoIn();
 
+	/* Encontra um operando */
 	if (eLetra()) {
+		/* Armazena o operando pra poder se deslocar no vetor */
 		let = *in;
 		pulaEspacoIn();
 		
 		/* Verifica se há dois operandos um ao lado do outro */
 		if (eLetra())
 			return montaErro(OPERADOR_ESPERADO, indIn);
-			
+		
+		/* Armazena o operando na posfixa e pula uma posição */
 		*pos = let;
 		pos++;
 		indPos++;
 			
+	/* Encontra um abre parênteses */
 	} else if (*in == '(') {
 		pulaEspacoIn();
 		/* Verifica se não há operando ou operador após abrir o parêntese */
-		if (*in == '\0' || *in == ')')
+		if (*in == '\0' || *in == ')') /* Se não houver, falta operando */
 			return montaErro(OPERANDO_ESPERADO, indIn);
 		
+		/* Dentro de parenteses deve existir uma expressão "separada" do resto */
 		erroP = Expressao();
 		
 		if (erroP.codigoErro != EXPR_VALIDA)
@@ -247,18 +271,24 @@ Erro Primario() {
 		/* Verifica se o operador realmente é unário ou se é binário, mas falta um operando */
 		if (!eLetra() && *in != '(')
 			return montaErro(OPERANDO_ESPERADO, indIn);
+		/* Verifica o termo do operador unário */
 		erroP = Termo();
 		
 		if (erroP.codigoErro != EXPR_VALIDA)
 			return erroP;
-
+		
+		/* Armazena o operador e pula uma posição */
 		*pos = unr;
 		pos++;
 		indPos++;
+	
+	/* Caso for encontrado um operador nesse momento ou se estiver no fim da expressão, fatou um
+	 * operando */
 	} else if (*in == '+' || *in == '-' || *in == '*' || 
 			   *in == '/' || *in == '^' || *in == ')' || *in == '\0') {
 		return montaErro(OPERANDO_ESPERADO, indIn);
 		
+	/* Caso não entrar em nenhum dos casos anteriores, o caractere é inválido */
 	} else return montaErro(CARACTERE_INVALIDO, indIn);
 	
 	return resCorreto;

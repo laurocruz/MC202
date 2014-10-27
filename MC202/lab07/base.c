@@ -1,13 +1,10 @@
-/*
-  Autor:         COMPLETAR!
-  RA:            COMPLETAR!
-  Disciplina:    MC202
-  Turma:         COMPLETAR!
-  
-  Tarefa 07 
-  Segundo semestre de 2012
-
-*/
+/************************************************************************
+ * Lauro Cruz e Souza - RA: 156175                                      *
+ * MC202 - Turma F                                                      *
+ * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
+ * Laboratório 07 - Base de dados com árvores de busca simples - base.c *
+ * Last modified: 19-10-14                                              *
+ ************************************************************************/
 
 /*
  * Arquivo base.c: implementação das funções de manipulação da base.
@@ -25,18 +22,34 @@ typedef struct AuxNoArv {
 
 Base CriaBase() {
 /* Devolve apontador para uma base vazia */
+	Base p = (ImplBase)MALLOC(sizeof(NoArv));
 
-  return NULL;
-  
+	p->esq = p->dir = NULL
+	p->(info.ra) = 0;
+	p->(info.nome[0]) = '\0';
+	
+	return p;;
 }
 
 Boolean InsereBase(Base *p, Aluno a) {
 /* Insere o registro 'a' na base 'p' se não existe aluno
    com o mesmo valor de 'ra', e devolve 'true';  caso
    contrário devolve 'false' */
-   
-  /****** COMPLETAR ***********/
-  return false; /* PROVISÓRIO */
+
+	while (*p != NULL) {
+		if (a.ra < (*p)->info.ra)
+			*p = (*p)->esq;
+		else if (a.ra > (*p)->info.ra)
+			*p = (*p)->dir;
+		else return false;
+	}
+	
+	*p = (ImplBase)MALLOC(sizeof(NoArv));
+	
+	(*p)->info = a;
+	(*p)->esq = (*p)->dir = NULL;
+
+	return true;
 
 } /* InsereBase */
    
@@ -45,7 +58,7 @@ Boolean ConsultaBase(Base *p, int ra, Aluno *a) {
    base 'p';  caso contrário devolve 'false'. 'a' conterá 
    os dados do aluno, se encontrado. */
    
-  /****** COMPLETAR ***********/
+
   return false; /* PROVISÓRIO */
   
 } /* ConsultaBase */

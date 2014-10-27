@@ -68,6 +68,7 @@ Erro InArv(char *infixa, ArvBin *arv) {
 
 	final = Expressao(arv);
 	
+	/* Se o vetor não estiver no final, faltou um operador */
 	if ((in[indIn] != '\0') && (final.codigoErro == EXPR_VALIDA))
 		return montaErro(OPERADOR_ESPERADO, indIn);
  
@@ -80,6 +81,7 @@ Erro InArv(char *infixa, ArvBin *arv) {
 /*************************************************************/
 
 void pulaEspacoIn() {
+	/* Pula espaços em branco */
 	if (in[indIn] != ' ') {
 		ant = in[indIn];
 		indIn++;
@@ -90,6 +92,7 @@ void pulaEspacoIn() {
 }
 
 int eLetra() {
+	/* Verifica e o caractere é uma letra */
 	return ((toupper(in[indIn]) >= 'A') && (toupper(in[indIn]) <= 'Z'));
 }
 
@@ -105,6 +108,7 @@ Erro montaErro(int codigo, int posicao) {
 } /* montaErro */
 
 int car_inv() {
+	/* Verifica se o caractere é inválido */
 	char c = in[indIn];
 	
 	return (c != '+' && c != '-' && c != '*' && c != '/' && 
@@ -259,6 +263,7 @@ Erro Primario(ArvBin *arv) {
 		if (eLetra())
 			return montaErro(OPERADOR_ESPERADO, indIn);
 			
+		/* Um operando é alocado em uma folha */
 		(*arv)->esq = (*arv)->dir = NULL;
 		(*arv)->info = let; 
 		
@@ -289,21 +294,25 @@ Erro Primario(ArvBin *arv) {
 		if (!eLetra() && in[indIn] != '(')
 			return montaErro(OPERANDO_ESPERADO, indIn);
 		
+		/* O termo do operador unário é alocado no nó direito */
 		(*arv)->esq = NULL;
 		(*arv)->info = unr;
 		
 		(*arv)->dir = MALLOC(sizeof(NoArvBin));
 		
+		/* Verifica o termo do operador unário */
 		erroP = Termo(&((*arv)->dir));
 		
 		if (erroP.codigoErro != EXPR_VALIDA)
 			return erroP;
-		
+	
+	/* Se um desses caracteres forem encontrados, a entrada está incorreta pois espera um operando*/
 	} else if (in[indIn] == '+' || in[indIn] == '-' || in[indIn] == '*' || 
 			   in[indIn] == '/' || in[indIn] == '^' || in[indIn] == ')' || 
 			   in[indIn] == '\0') {
 		return montaErro(OPERANDO_ESPERADO, indIn);
 		
+	/* Se não entrar em nenhum dos casos acima, o caractere é inválido */
 	} else return montaErro(CARACTERE_INVALIDO, indIn);
 	
 	return resCorreto;

@@ -4,7 +4,7 @@
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
  * Laboratório 07 - Base de dados com árvores de busca simples - base.c *
  * Last modified: 19-10-14                                              *
- ************************************************************************/
+ ************************************************************************ /
 
 /*
  * Arquivo base.c: implementação das funções de manipulação da base.

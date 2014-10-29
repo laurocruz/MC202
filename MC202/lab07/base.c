@@ -3,8 +3,8 @@
  * MC202 - Turma F                                                      *
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
  * Laboratório 07 - Base de dados com árvores de busca simples - base.c *
- * Last modified: 19-10-14                                              *
- ************************************************************************ /
+ * Last modified: 29-11-14                                              *
+ ************************************************************************/
 
 /*
  * Arquivo base.c: implementação das funções de manipulação da base.
@@ -25,7 +25,7 @@ int maiorValor(int a, int b) {
 	else return b;
 }
 
-Aluno removeFolha (Base *p) {
+Aluno removeFolha (ImplBase *p) {
 	Aluno a;
 	ImplBase aux;
 	
@@ -44,35 +44,33 @@ Aluno removeFolha (Base *p) {
 
 Base CriaBase() {
 /* Devolve apontador para uma base vazia */
-	Base bas;
-	ImplBase p = MALLOC(sizeof(NoArv));
-
-	p->esq = p->dir = NULL
-	(p->info).ra = 0;
-	((p->info).nome)[0] = '\0';
 	
-	bas = p;
-	
-	return bas;
+	return NULL;
 }
 
 Boolean InsereBase(Base *p, Aluno a) {
 /* Insere o registro 'a' na base 'p' se não existe aluno
    com o mesmo valor de 'ra', e devolve 'true';  caso
    contrário devolve 'false' */
+	Boolean entrou = false;
+	ImplBase* b = (ImplBase*) p;
 
-	while (*p != NULL) {
-		if (a.ra < ((*p)->info).ra)
-			*p = (*p)->esq;
-		else if (a.ra > ((*p)->info).ra)
-			*p = (*p)->dir;
+	while (*b != NULL) {
+		entrou = true;
+		if (a.ra < ((*b)->info).ra)
+			b = &((*b)->esq);
+		else if (a.ra > ((*b)->info).ra)
+			b = &((*b)->dir);
 		else return false;
 	}
 	
-	*p = MALLOC(sizeof(NoArv));
+	*b = MALLOC(sizeof(NoArv));
 	
-	(*p)->info = a;
-	(*p)->esq = (*p)->dir = NULL;
+	(*b)->info = a;
+	(*b)->esq = (*b)->dir = NULL;
+	
+	if (!entrou)
+		*p = *b;
 
 	return true;
 
@@ -82,14 +80,15 @@ Boolean ConsultaBase(Base *p, int ra, Aluno *a) {
 /* Devolve 'true' se existe um registro com 'ra' dado na
    base 'p';  caso contrário devolve 'false'. 'a' conterá 
    os dados do aluno, se encontrado. */
-	
-	while (*p != NULL) {
-		if (ra < ((*p)->info).ra)
-			*p = (*p)->esq;
-		else if (ra > ((*p)->info).ra)
-			*p = (*p)->dir;
+	ImplBase b = (ImplBase) *p;
+
+	while (b != NULL) {
+		if (ra < (b->info).ra)
+			b = b->esq;
+		else if (ra > (b->info).ra)
+			b = b->dir;
 		else {
-			*a = (*p)->info;
+			*a = b->info;
 			return true;
 		}
 	}
@@ -101,20 +100,25 @@ Boolean ConsultaBase(Base *p, int ra, Aluno *a) {
 Boolean RemoveBase(Base *p, int ra) {
 /* Devolve 'true' se um registro com 'ra' pôde ser removido da
    base 'p';  caso contrário devolve 'false'. */
+	ImplBase* b = (ImplBase*) p;
 	ImplBase aux;
 	
-	while (*p != NULL) {
-		if (ra < ((*p)->info).ra)
-			*p = (*p)->esq;
-		else if (ra > ((*p)->info).ra)
-			*p = (*p)->dir;
+	while (*b != NULL) {
+		if (ra < ((*b)->info).ra)
+			b = &((*b)->esq);
+		else if (ra > ((*b)->info).ra)
+			b = &((*b)->dir);
 		else {
-			if ((*p)->dir == NULL) {
-				aux = *p;
-				*p = (*p)->esq;
+			if ((*b)->dir == NULL) {
+				aux = *b;
+				*b = (*b)->esq;
+				FREE(aux);
+			} else if ((*b)->esq == NULL) {
+				aux = *b;
+				*b = (*b)->dir;
 				FREE(aux);
 				
-			} else (*p)->info = removeFolha(p);
+			} else (*b)->info = removeFolha(b);
 			
 			return true;
 		}
@@ -127,12 +131,17 @@ Boolean RemoveBase(Base *p, int ra) {
 int AlturaBase(Base *p) {
 /* Devolve a altura da base 'p'. */
 	int hEsq, hDir;
+	ImplBase* b = (ImplBase*) p;
+	Base* es, di;
 	
-	if (*p == NULL)
+	if (*b == NULL)
 		return 0;
 	
-	hEsq = AlturaBase(&((*p)->esq));
-	hDir = AlturaBase(&((*p)->dir));
+	es = (Base*) &((*b)->esq);
+	di = (Base*) &((*b)->dir);
+	
+	hEsq = AlturaBase(es);
+	hDir = AlturaBase(di);
 	
 	return maiorValor(hEsq, hDir) + 1;
 
@@ -140,10 +149,17 @@ int AlturaBase(Base *p) {
 
 int NumeroNosBase(Base *p) {
 /* Devolve o número de nós da base 'p'. */
-	if (*p == NULL)
+	ImplBase* b = (ImplBase*) p;
+	Base* es, di;
+	
+	if (*b == NULL)
 		return 0;
 	
-	return NumeroNosBase(&((*p)->esq)) + NumeroNosBase(&((*p)->dir)) + 1;
+	es = (Base*) &((*b)->esq);
+	di = (Base*) &((*b)->dir);
+	
+	
+	return NumeroNosBase(es) + NumeroNosBase(di) + 1;
 
 } /* NumeroNosBase */
 
@@ -151,11 +167,15 @@ int NumeroNosBase(Base *p) {
 void PercorreBase(Base *p, void (*Visita)(Aluno*)) {
 /* Executa um percurso inordem na base, invocando a função Visita
    para todos os elementos. */
-
-	while (*p != NULL) {
-		PercorreBase(&((*p)->esq), Visita());
-		Visita(&((*p)->info));
-		*p = (*p)->dir;
+	ImplBase b = (ImplBase) *p;
+	Base* es, in;
+	
+	while (b != NULL) {
+		es = (Base*) &(b->esq);
+		in = (Base*) &(b->info);
+		PercorreBase(es, Visita);
+		Visita(in);
+		b = b->dir;
 	}
 
 }   /* PercorreBase */
@@ -163,11 +183,15 @@ void PercorreBase(Base *p, void (*Visita)(Aluno*)) {
 void LiberaBase(Base *p) {
 /* Libera todos os nós da base apontada por 'p', bem 
    como todas as cadeias que guardam os nomes. */
-
+	ImplBase* b = (ImplBase*) p;
+	Base* es, di;
+	
 	if (*p != NULL) {
-		LiberaBase(&((*p)->esq));
-		LiberaBase(&((*p)->dir));
-		FREE (*p);
+		es = (Base*) &((*b)->esq);
+		di = (Base*) &((*b)->dir);
+		LiberaBase(es);
+		LiberaBase(di);
+		FREE(*p);
 	}
 
 } /* LiberaBase */

@@ -27,18 +27,18 @@ int maiorValor(int a, int b) {
 
 Aluno removeFolha (ImplBase *p) {
 	Aluno a;
-	ImplBase aux;
-	
-	*p = (*p)->dir;
+	ImplBase out;
 	
 	while ((*p)->esq != NULL)
-		*p = (*p)->esq;
+		p = &((*p)->esq);
 	
 	a = (*p)->info;
-	aux = *p;
-	*p = (*p)->dir;
-	FREE(aux);
+	out = *p;
 	
+	*p = (*p)->dir;
+	FREE((out->info).nome);
+	FREE(out);
+
 	return a;
 }
 
@@ -109,16 +109,16 @@ Boolean RemoveBase(Base *p, int ra) {
 		else if (ra > ((*b)->info).ra)
 			b = &((*b)->dir);
 		else {
-			if ((*b)->dir == NULL) {
+			if ((*b)->dir == NULL || (*b)->esq == NULL) {
 				aux = *b;
-				*b = (*b)->esq;
-				FREE(aux);
-			} else if ((*b)->esq == NULL) {
-				aux = *b;
-				*b = (*b)->dir;
+				
+				if ((*b)->dir == NULL) *b = (*b)->esq;
+				else *b = (*b)->dir;
+				
+				FREE((aux->info).nome);
 				FREE(aux);
 				
-			} else (*b)->info = removeFolha(b);
+			} else (*b)->info = removeFolha(&((*b)->dir));
 			
 			return true;
 		}
@@ -183,15 +183,16 @@ void PercorreBase(Base *p, void (*Visita)(Aluno*)) {
 void LiberaBase(Base *p) {
 /* Libera todos os nós da base apontada por 'p', bem 
    como todas as cadeias que guardam os nomes. */
-	ImplBase* b = (ImplBase*) p;
+	ImplBase b = (ImplBase) *p;
 	Base* es, di;
 	
-	if (*p != NULL) {
-		es = (Base*) &((*b)->esq);
-		di = (Base*) &((*b)->dir);
+	if (b != NULL) {
+		es = (Base*) &(b->esq);
+		di = (Base*) &(b->dir);
 		LiberaBase(es);
 		LiberaBase(di);
-		FREE(*p);
+		FREE((b->info).nome);
+		FREE(b);
 	}
 
 } /* LiberaBase */

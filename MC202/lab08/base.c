@@ -322,8 +322,18 @@ void LiberaBase(Base *p) {
 
 Boolean RemoveBase(Base *p, int ra) {
 /* Devolve 'true' se um registro com 'ra' pôde ser removido da
-   base 'p';  caso contrário devolve 'false'. 
-*/
+   base 'p';  caso contrário devolve 'false'. */
+
+    ImplBase* b = (ImplBase*) p;
+
+    if (*b == NULL)
+        return false;
+    else {
+        int RAno = ((*b)->info).ra;
+
+        if (ra <
+
+    }
     return true;
 }
 

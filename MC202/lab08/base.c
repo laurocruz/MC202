@@ -137,13 +137,13 @@ Boolean InsereBase(Base *p, Aluno a) {
                     case -1:
                         b1 = &((*b)->esq);
                         b2 = &((*b1)->dir);
-                        if ((*b1)->bal == -1) { /* Rotação simes */
+                        if ((*b1)->bal == -1) { /* Rotaçãoimples */
                             aux = *b2;
                             (*b)->bal = (*b1)->bal = 0;
                             *b2 = *b;
                             *b = *b1;
                             *b1 = aux;
-                        } else { /* Rotação dup */
+                        } else { /* Rotação pla */
                             ImplBase *b3 = &((*b2)->esq), *b4 = &((*b2)->dir), aux3, aux4;
                             if ((*b2)->bal == 1) {
                                 (*b)->bal = 0;
@@ -320,6 +320,19 @@ void LiberaBase(Base *p) {
 	}
 }
 
+void EncontraFolha (ImplBase* b, int* ra, String* nome) {
+    ImplBase aux = *b;
+
+    aux = aux->dir;
+
+    while ((aux)->esq != NULL) b = &((aux)->esq);
+
+    *ra = (aux->info).ra;
+    *nome = (aux->info).nome;
+
+    RemoveBase (b, (aux->info).ra);
+}
+
 Boolean RemoveBase(Base *p, int ra) {
 /* Devolve 'true' se um registro com 'ra' p�de ser removido da
    base 'p';  caso contr�rio devolve 'false'. */
@@ -331,7 +344,51 @@ Boolean RemoveBase(Base *p, int ra) {
     else {
         int RAno = ((*b)->info).ra;
 
-        if (ra <
+        if (ra < RAno) { /* Desce a esquerda */
+            Base* es = (Base*) &((*b)->esq);
+            if(!RemoveBase(es, ra))
+                return false;
+
+            if (altRe) {
+                switch ((*b)->bal) {
+                    case -1: (*b)->bal = 0; break;
+                    case 0: (*b)->bal = 1; altRe = false; break;
+                    case 1:
+
+                }
+
+            }
+
+        } else if (ra > RAno) { /* Desce a direita */
+            Base* di = (Base*) &((*b)->dir);
+            if(!RemoveBase(di, ra))
+                return false;
+
+            if (altRe) {
+                switch ((*b)->bal) {
+                    case 1: (*b)->bal = 0; break;
+                    case 0: (*b)->bal = -;1 altRe = false; break;
+                    case -1:
+                }
+            }
+       
+        } else { /* Encontra o nó a ser removdo */
+            if ((*b)->esq == NULL || (*b)->dir == NULL) {
+                ImplBase aux = *b;
+
+                if ((*b)->esq == NULL) *b = (*b)->dir;
+                else *b = (*b)->esq;
+
+                FREE((aux->info).nome);
+                FREE(aux);
+                altRe = true;
+
+            } else {
+                FREE(((*b)->info).nome);
+                EncontraFolha (b, &(((*b)->info).ra), &(((*b)->info).nome));
+            }
+        }
+
 
     }
     return true;

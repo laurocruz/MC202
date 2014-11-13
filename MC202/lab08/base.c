@@ -325,7 +325,7 @@ void EncontraFolha (ImplBase* b, int* ra, String* nome) {
 
     aux = aux->dir;
 
-    while ((aux)->esq != NULL) b = &((aux)->esq);
+    while ((aux)->esq != NULL) aux = aux->esq;
 
     *ra = (aux->info).ra;
     *nome = (aux->info).nome;

@@ -350,11 +350,43 @@ Boolean RemoveBase(Base *p, int ra) {
                 return false;
 
             if (altRe) {
+                ImplBase *b1, *b2, aux;
                 switch ((*b)->bal) {
                     case -1: (*b)->bal = 0; break;
                     case 0: (*b)->bal = 1; altRe = false; break;
                     case 1:
-
+                        b1 = &((*b)->dir);
+                        b2 = &((*b)->esq);
+                        if ((*b1)->bal == 0 || (*b1)->bal == 1) { /* Rotacao simples (RR) */
+                            *b2 = *b;
+                            *b = *b1;
+                            *b1 = aux;
+                            if ((*b1)->bal == 0) {
+                                (*b1)->bal = -1;
+                                altRe = false;
+                            } else (*b)->bal = (*b1)->bal = 0;
+                        } else { /* Rotacao dupla (RL) */
+                            ImplBase *b3, *b4, aux3, aux4;
+                            if ((*b2)->bal == 0) {
+                                (*b)->bal = (*b1)->bal = 0;
+                            } else if ((*b2)->bal == -1) {
+                                (*b)->bal = 0;
+                                (*b1)->bal = 1;
+                                (*b2)->bal = 0;
+                            } else {
+                                (*b)->bal = -1;
+                                (*b1)->bal = 0;
+                                (*b2)->bal = 0;
+                            }
+                            aux3 = *b3;
+                            aux4 = *b4;
+                            *b4 = *b1;
+                            *b3 = *b;
+                            *b = *b2;
+                            *b1 = aux3;
+                            *b2 = aux4;
+                        }
+                        break;
                 }
 
             }
@@ -365,6 +397,7 @@ Boolean RemoveBase(Base *p, int ra) {
                 return false;
 
             if (altRe) {
+                ImplBase *b1, *b2, aux;
                 switch ((*b)->bal) {
                     case 1: (*b)->bal = 0; break;
                     case 0: (*b)->bal = -;1 altRe = false; break;
@@ -372,7 +405,7 @@ Boolean RemoveBase(Base *p, int ra) {
                 }
             }
        
-        } else { /* Encontra o nó a ser removdo */
+        } else { /* Encontra o no a ser removdo */
             if ((*b)->esq == NULL || (*b)->dir == NULL) {
                 ImplBase aux = *b;
 

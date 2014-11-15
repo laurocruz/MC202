@@ -100,51 +100,69 @@ int FatorBal(Base *p) {
 
 }
 
+void RotacaoSimples(ImplBase *b, ImplBase *b1, ImplBase *b2) {
+    /* Realiza a rotacao simples dados os enderecos dos ponteiros dos nos */
+    ImplBase aux = *b2;
+    *b2 = *b;
+    *b = *b1;
+    *b1 = aux;
+}
+
+void RotacaoDupla(ImplBase *b, ImplBase *b1, ImplBase *b2, ImplBase *b3, ImplBase *b4) {
+    /* Realiza a rotacao dupla dados os enderecoes dos ponteiros dos nos */
+    ImplBase aux3 = *b3,  aux4 = *b4;
+    *b3 = *b1;
+    *b4 = *b;
+    *b = *b2;
+    *b1 = aux4;
+    *b2 = aux3;
+}
+
 Boolean InsereBase(Base *p, Aluno a) {
 /* Insere o registro 'a' na base 'p' se n�o existe aluno
    com o mesmo valor de 'ra', e devolve 'true';  caso
    contr�rio devolve 'false' */
     ImplBase* b = (ImplBase*) p;
 
-    if (*b == NULL) {
+    if (*b == NULL) { /* Nao encontrou o aluno, ent�ão pode iserir */
         *b = MALLOC(sizeof(NoArv));
-        (*b)->esq = (*b)->dir = NULL;
+        (*b)->esq = (*b)->dir = NULL; /* E uma folha */
+        /* Passa as informacoes do aluno paro o no */
         (*b)->bal = 0;
         ((*b)->info).ra = a.ra;
         ((*b)->info).nome = a.nome;
-        altIn = true;
+        altIn = true; /* Houve alteracao na altura */
         return true;
+
     } else {
         int info = ((*b)->info).ra;
         if (a.ra == info) /* Encontrou o ra */
             return false;
         else if (a.ra < info) { /* Desce a esquerda */
             Base *es = (Base*) &((*b)->esq);
-            Boolean res = InsereBase(es, a);
+            if (!InsereBase(es, a)) return false; /* Nao consegue inserir o RA */
 
-            if (!res) return false;
-
-            if (altIn) {
-                 ImplBase *b1, *b2, aux;
+            if (altIn) { /* Houve mudanca na altura */
+                 ImplBase *b1, *b2;
                 switch ((*b)->bal) {
-                    case 1: 
+                    case 1: /* Insercao no lado mais baixo */
                         (*b)->bal = 0; 
                         altIn = false;
                         break;
-                    case 0:
+                    case 0: /* Insercao com lados de alturas iguais */
                         (*b)->bal = -1;
                         break;
-                    case -1:
+                    case -1: /* Insercao no lado mais alto */
                         b1 = &((*b)->esq);
                         b2 = &((*b1)->dir);
-                        if ((*b1)->bal == -1) { /* Rotaçãoimples */
-                            aux = *b2;
+
+                        if ((*b1)->bal == -1) { /* Rotacao simples (LL) */
+                            /* Alterando o balanceamento dos nos */
                             (*b)->bal = (*b1)->bal = 0;
-                            *b2 = *b;
-                            *b = *b1;
-                            *b1 = aux;
-                        } else { /* Rotação pla */
-                            ImplBase *b3 = &((*b2)->esq), *b4 = &((*b2)->dir), aux3, aux4;
+                            RotacaoSimples(b, b1, b2);
+
+                        } else { /* Rotacao dupla (LR) */
+                            /* Alterando o balanceamento dos nos */
                             if ((*b2)->bal == 1) {
                                 (*b)->bal = 0;
                                 (*b1)->bal = -1;
@@ -154,15 +172,8 @@ Boolean InsereBase(Base *p, Aluno a) {
                             } else {
                                 (*b)->bal = (*b1)->bal = 0;
                             }
-
                             (*b2)->bal = 0;
-                            aux3 = *b3;
-                            aux4 = *b4;
-                            *b3 = *b1;
-                            *b4 = *b;
-                            *b = *b2;
-                            *b1 = aux4;
-                            *b2 = aux3;
+                            RotacaoDupla(b, b1, b2, &((*b2)->esq), &((*b2)->dir));
                         }
                         altIn = false;
                         break;
@@ -170,30 +181,29 @@ Boolean InsereBase(Base *p, Aluno a) {
             }
         } else { /* Desce a direita */
             Base *di = (Base*) &((*b)->dir);
-            Boolean res = InsereBase(di, a);
-            if (!res) return false;
+            if (!InsereBase(di, a)) return false; /* Nao consegue inserir o RA */
 
-            if (altIn) {
-                ImplBase *b1, *b2, aux;
+            if (altIn) { /* Houve mudanca na altura */
+                ImplBase *b1, *b2;
                 switch ((*b)->bal) {
-                    case -1: 
+                    case -1: /* Insercao no lado mais baixo */
                         (*b)->bal = 0; 
                         altIn = false;
                         break;
-                    case 0:
+                    case 0: /* Insercao com lados de alturas iguais */
                         (*b)->bal = 1;
                         break;
-                    case 1:
+                    case 1: /* Insercao no lado mais alto */
                         b1 = &((*b)->dir);
                         b2 = &((*b1)->esq);
-                        if ((*b1)->bal == 1) { /* Rotação simples */
-                            aux = *b2;
+
+                        if ((*b1)->bal == 1) { /* Rotação sples (RR) */
+                            /* Alterando o balanceamento dos nos */
                             (*b)->bal = (*b1)->bal = 0;
-                            *b2 = *b;
-                            *b = *b1;
-                            *b1 = aux;
-                        } else { /* Rotação dupla */
-                            ImplBase *b3 = &((*b2)->esq), *b4 = &((*b2)->dir), aux3, aux4;
+                            RotacaoSimples(b, b1, b2);
+
+                        } else { /* Rotação dua (RL) */
+                            /* Alterando o balenceamento dos nos */
                             if ((*b2)->bal == 1) {
                                 (*b)->bal = -1;
                                 (*b1)->bal = 0;
@@ -204,13 +214,7 @@ Boolean InsereBase(Base *p, Aluno a) {
                                 (*b)->bal = (*b1)->bal = 0;
                             }
                             (*b2)->bal = 0;
-                            aux3 = *b3;
-                            aux4 = *b4;
-                            *b4 = *b1;
-                            *b3 = *b;
-                            *b = *b2;
-                            *b1 = aux3;
-                            *b2 = aux4;
+                            RotacaoDupla(b, b1, b2, &((*b2)->dir), &((*b2)->esq));
                         }
                         altIn = false;
                         break;
@@ -229,18 +233,18 @@ Boolean ConsultaBase(Base *p, int ra, Aluno *a) {
     ImplBase b = (ImplBase) (*p);
 
     while (b != NULL) {
-        if ((b->info).ra > ra)
+        if ((b->info).ra > ra) /* Desce a esquerda */
             b = b->esq;
-        else if ((b->info).ra < ra)
+        else if ((b->info).ra < ra) /* Desde a direita */
             b = b->dir;
-        else {
-            (*a).ra = (b->info).ra;
+        else { /* Encontra o aluno com o RA passado como parametro */
+            /* Copia suas informacoes */
+            (*a).ra = ra;
             (*a).nome = (b->info).nome;
             return true;
         }
     }
-
-    return false;
+    return false; /* Não encontra o aluno na arvore */
 }
   
 int AlturaBase(Base *p) {
@@ -320,17 +324,26 @@ void LiberaBase(Base *p) {
 	}
 }
 
-void EncontraFolha (ImplBase* b, int* ra, String* nome) {
+void EncontraFolha (ImplBase* b) {
+    /* Encontra a menor folha da subarvore direita do no a ser removido.
+     * Copia as informacoes dessa folha ao no que tem de ser removido
+     * Chama a recursao pare remover essa folha */
     ImplBase aux = *b;
+    Base* p = (Base*) &((*b)->dir);
 
     aux = aux->dir;
 
+    /* Encontra o no mais a esquerda da subarvore direita */
     while ((aux)->esq != NULL) aux = aux->esq;
 
-    *ra = (aux->info).ra;
-    *nome = (aux->info).nome;
+    /* Copia as informacoes */
+    ((*b)->info).ra = (aux->info).ra;
+    ((*b)->info).nome = (aux->info).nome;
 
-    RemoveBase (b, (aux->info).ra);
+    (aux->info).nome = NULL;
+
+    /* Remocao da folha */
+    RemoveBase (p, (aux->info).ra);
 }
 
 Boolean RemoveBase(Base *p, int ra) {
@@ -339,34 +352,34 @@ Boolean RemoveBase(Base *p, int ra) {
 
     ImplBase* b = (ImplBase*) p;
 
-    if (*b == NULL)
+    if (*b == NULL) /* Nao encontra o no a ser removido */
         return false;
     else {
         int RAno = ((*b)->info).ra;
 
         if (ra < RAno) { /* Desce a esquerda */
             Base* es = (Base*) &((*b)->esq);
-            if(!RemoveBase(es, ra))
-                return false;
+            if(!RemoveBase(es, ra)) return false; /* Nao encontrou o no */
 
-            if (altRe) {
-                ImplBase *b1, *b2, aux;
+            if (altRe) { /* Houve variacao de altura */
+                ImplBase *b1, *b2;
                 switch ((*b)->bal) {
-                    case -1: (*b)->bal = 0; break;
-                    case 0: (*b)->bal = 1; altRe = false; break;
-                    case 1:
+                    case -1: (*b)->bal = 0; break; /* Remocao no lado mais alto */
+                    case 0: (*b)->bal = 1; altRe = false; break; /* Remocao com lados de alturas iguais */
+                    case 1: /* Remocao no lado mais baixo */
                         b1 = &((*b)->dir);
-                        b2 = &((*b)->esq);
+                        b2 = &((*b1)->esq);
+
                         if ((*b1)->bal == 0 || (*b1)->bal == 1) { /* Rotacao simples (RR) */
-                            *b2 = *b;
-                            *b = *b1;
-                            *b1 = aux;
+                            /* Alterando o balanceamento dos nos */
                             if ((*b1)->bal == 0) {
                                 (*b1)->bal = -1;
                                 altRe = false;
                             } else (*b)->bal = (*b1)->bal = 0;
+                            RotacaoSimples(b, b1, b2);
+
                         } else { /* Rotacao dupla (RL) */
-                            ImplBase *b3, *b4, aux3, aux4;
+                            /* Alterando o balanceamento dos nos */
                             if ((*b2)->bal == 0) {
                                 (*b)->bal = (*b1)->bal = 0;
                             } else if ((*b2)->bal == -1) {
@@ -378,13 +391,7 @@ Boolean RemoveBase(Base *p, int ra) {
                                 (*b1)->bal = 0;
                                 (*b2)->bal = 0;
                             }
-                            aux3 = *b3;
-                            aux4 = *b4;
-                            *b4 = *b1;
-                            *b3 = *b;
-                            *b = *b2;
-                            *b1 = aux3;
-                            *b2 = aux4;
+                            RotacaoDupla(b, b1, b2, &((*b2)->dir), &((*b2)->esq));
                         }
                         break;
                 }
@@ -393,32 +400,62 @@ Boolean RemoveBase(Base *p, int ra) {
 
         } else if (ra > RAno) { /* Desce a direita */
             Base* di = (Base*) &((*b)->dir);
-            if(!RemoveBase(di, ra))
-                return false;
+            if(!RemoveBase(di, ra)) return false;
 
-            if (altRe) {
-                ImplBase *b1, *b2, aux;
+            if (altRe) { /* Houve variacao de altura */
+                ImplBase *b1, *b2;
                 switch ((*b)->bal) {
-                    case 1: (*b)->bal = 0; break;
-                    case 0: (*b)->bal = -;1 altRe = false; break;
-                    case -1:
+                    case 1: (*b)->bal = 0; break; /* Remocao no lado mais alto */
+                    case 0: (*b)->bal = -1; altRe = false; break; /* Remocao com lados de alturas iguais */
+                    case -1: /* Remocao no lado mais baixo */
+                        b1 = &((*b)->esq);
+                        b2 = &((*b1)->dir);
+
+                        if ((*b1)->bal == 0 || (*b1)->bal == -1) { /* Rotacao simples (LL) */
+                            /* Alterando balanceamento dos nos */
+                            if ((*b1)->bal == 0) {
+                                (*b1)->bal = 1;
+                                altRe = false;
+                            } else (*b)->bal = (*b1)->bal = 0;
+
+                            RotacaoSimples (b, b1, b2);
+
+                        } else { /* Rotacao dupla (LR) */
+                            /* Alterando balanceamento dos nos */
+                            if ((*b2)->bal == 0) {
+                                (*b)->bal = (*b1)->bal = 0;
+                            } else if ((*b2)->bal == -1) {
+                                (*b)->bal = 0;
+                                (*b1)->bal = 1;
+                                (*b2)->bal = 0;
+                            } else {
+                                (*b)->bal = -1;
+                                (*b1)->bal = 0;
+                                (*b2)->bal = 0;
+                            }
+                            RotacaoDupla(b, b1, b2, &((*b2)->esq), &((*b2)->dir));
+                        }
+                        break;
                 }
             }
        
         } else { /* Encontra o no a ser removdo */
-            if ((*b)->esq == NULL || (*b)->dir == NULL) {
+            if ((*b)->esq == NULL || (*b)->dir == NULL) { /* No pode ser removido diretamente */
                 ImplBase aux = *b;
-
+               
+                /* Determina em que lado esta o filho (se houver), e o no pai apontara para ele */
                 if ((*b)->esq == NULL) *b = (*b)->dir;
                 else *b = (*b)->esq;
-
+                
+                /* Libera a string e no */
                 FREE((aux->info).nome);
                 FREE(aux);
-                altRe = true;
+                altRe = true; /* Ocorre variacao de altura */
 
-            } else {
+            } else { /* No nao pode ser removido diretamente */
                 FREE(((*b)->info).nome);
-                EncontraFolha (b, &(((*b)->info).ra), &(((*b)->info).nome));
+                /* Encontra o aluno de menor RA da subarvore direita */
+                EncontraFolha (b);
             }
         }
 

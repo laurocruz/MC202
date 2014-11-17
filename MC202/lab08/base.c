@@ -3,7 +3,7 @@
  * MC202 - Turma F                                                      *
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
  * Laboratório 08 - Base de Dados com Arvore AVL - base.c              *
- * Last modified: 31-10-14                                              *
+ * Last modified: 14-11-14                                              *
  ************************************************************************/
 
 /*

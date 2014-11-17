@@ -2,7 +2,7 @@
  * Lauro Cruz e Souza - RA: 156175                                      *
  * MC202 - Turma F                                                      *
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
- * Laboratorio 08 - Fila de prioridades (heap)                          *
+ * Laboratorio 09 - Fila de prioridades (heap)                          *
  * Last modified: 17-11-14                                              *
  ************************************************************************/
 
@@ -26,8 +26,16 @@ typedef struct {
 
 /* Funções auxiliares para manipulação de FPs. */
 void Sobe(ImplHeap h, int m) {
+    int x = h->vetor[m];
+    int pai = (m-1)/2;
 
-  /* COMPLETAR */
+    while (m > 0 && h->vetor[pai] < x) {
+        h->vetor[m] = h->vetor[pai];
+        m = pai;
+        pai = (pai-1)/2;
+    }
+
+    h->vetor[m] = x;
   
 } /* Sobe */
 
@@ -70,11 +78,10 @@ int TamanhoHeap(Heap h) {
   
 } /* TamanhoHeap */
 
-
 void InsereHeap(Heap h, void *e) {
     ImplHeap ih = h;
     
-    if (ih->tam==ih->tamMax) {
+    if (ih->tam == ih->tamMax) {
     printf("Estouro da FP\n");
     exit(0);
   }
@@ -88,10 +95,10 @@ void * RemoveHeap(Heap h) {
     ImplHeap ih = h;
     void *ret = NULL;
 
-    if (ih->tam==0) {
+    if (ih->tam == 0) {
          printf("FP vazia\n");
-        exit(0);
-  }
+         exit(0);
+    }
 
   /* COMPLETAR */
 

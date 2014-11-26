@@ -3,14 +3,14 @@
  * MC202 - Turma F                                                      *
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
  * Laboratorio 11 - Base de dados com espalhamento encadeado            *
- * Last modified: 23-11-14                                              *
+ * Last modified: 26-11-14                                              *
  ************************************************************************/
 
 
 #include <stdio.h>
 #include "base.h"
 
-/* DECLARAÇÕES DE TIPOS */
+/* DECLARACOES DE TIPOS */
 /* -------------------- */
 
 typedef struct RegLista *Lista;
@@ -49,8 +49,7 @@ Base CriaBase() {
     b->numregs = 0;
 
     for (int i = 0; i < MaxHash; i++) {
-        b->tabela[i] = MALLOC(sizeof(RegLista));
-        (b->tabela[i])->prox = NULL;
+        b->tabela[i] = NULL;
     }
     return (Base) b;
 } /* CriaBase */
@@ -106,7 +105,7 @@ Boolean RemoveBase(Base p, int ra) {
         return true;
     } else {
         aux = b->tabela[hash];
-        while (aux != NULL) {
+        while (aux->prox != NULL) {
             if (((aux->prox)->aluno).ra == ra) {
                 Lista aux1 = aux->prox->prox;
                 FREE(((aux->prox)->aluno).nome);
@@ -130,9 +129,11 @@ Boolean ConsultaBase(Base p, int ra, Aluno *a) {
 
     while (aux != NULL) {
         if ((aux->aluno).ra == ra) {
-            *a = aux->aluno;
+            (*a).nome = (aux->aluno).nome;
+            (*a).ra = (aux->aluno).ra;
             return true;
         }
+        aux = aux->prox;
     }
     return false;
 } /* ConsultaBase */
@@ -187,5 +188,7 @@ void LiberaBase(Base p) {
             aux1 = aux2;
         }
     }
+    FREE(b);
+
 } /* LiberaBase */
 

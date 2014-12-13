@@ -3,7 +3,7 @@
  * MC202 - Turma F                                                      *
  * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
  * Laboratorio 09 - Fila de prioridades (heap)                          *
- * Last modified: 19-11-14                                              *
+ * Last modified: 13-12-14                                              *
  ************************************************************************/
 
 /*
@@ -69,6 +69,11 @@ void Desce(ImplHeap h, int m) {
  
 } /* Desce */
 
+void ConstroiHeap(ImplHeap ih) {
+/* Recebe uma lista qualquer e a transforma em uma heap */
+    for (int i = (ih->tam-2)/2; i >= 0; i--)
+        Desce(ih, i);
+} /* Constroi Heap */
 
 Heap CriaHeapAux(int n, funcCompara *comp, void *elems[]) {
   /* Cria um heap vazio; se 'elems' não é nulo, preenche com os
@@ -80,12 +85,14 @@ Heap CriaHeapAux(int n, funcCompara *comp, void *elems[]) {
     ih->tam = 0;
     ih->tamMax = n;
 
-    while (elems != NULL) {
-        ih->vetor[ih->tam] = *elems;
-        elems++;
-        ih->tam++;
+    if (elems != NULL) {
+        for (int i = 0; i < n; i++) {
+            ih->vetor[ih->tam] = elems[i];
+            (ih->tam)++;
+        }
+        ConstroiHeap(ih);
     }
-  
+
     return ih;
   
 } /* CriaHeapAux */

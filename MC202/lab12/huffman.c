@@ -1,3 +1,12 @@
+/************************************************************************
+ * Lauro Cruz e Souza - RA: 156175                                      *
+ * MC202 - Turma F                                                      *
+ * laurocruzsouza@gmail.com / lauro.souza@students.ic.unicamp.br        *
+ * Laboratorio 12 - Codificacao de Huffman                              *
+ * Last modified: 13-12-14                                              *
+ ************************************************************************/
+
+
 /* 
  * huffman.c - Implementação do algoritmo de Huffman. 
  */
@@ -22,6 +31,7 @@
 
 #include <string.h>
 #include <stdio.h>
+#include <math.h>
 #include "huffman.h"
 #include "heap.h" 
 #include "balloc.h"
@@ -118,7 +128,15 @@ Boolean AcrescentaChar(char *s, int *n, char c, int maxCars) {
 
 } /* AcrescentaChar */
 
-int compara(ArvHuf a, ArvHuf b) { return b->peso - a->peso; }
+int compara(void* a, void* b) { 
+/* Funcao que compara os pesos de dois caracteres.
+ * E utilizada para organizar a fila de prioridade */
+    ArvHuf arvA = a, arvB = b;
+
+    /*Se o peso de a for maior que o de b, retorna negativo (-) */
+    /* Caso contrario, retorna positivo (+) */
+    return arvB->peso - arvA->peso; 
+} /* compara */
 
 
 /* Funções auxiliares para implementação com pseudo-bits */
@@ -149,7 +167,7 @@ Boolean ConstroiHuffman(char txt[], int n) {
        construção teve sucesso; 'false' caso contrário. */
 
     ArvHuf floresta[256];
-    int freq[256], i;
+    int freq[256], i, j = 0;
     Heap heap;      /* Depende da implementação de heap */
 
     /* Inicializa variáveis */
@@ -163,63 +181,112 @@ Boolean ConstroiHuffman(char txt[], int n) {
         freq[(unsigned char) txt[i]]++;
     }
 
-    heap = CriaHeap(256, compara);
-
+    /* Cria as folhas da arvore e as armazena no vetor de Folhas.
+     * O vetor floresta sera usado para criar a fila de prioridade. */
     for (i = 0; i < 256; i++) {
-        int j = 0;
         if (freq[i] > 0) {
-            Folhas[i] = CriaFolha((char)i, freq[i]);
-            InsereHeap(heap, Folhas[i]);
+        /* Armazena apenas os caracteres que aparecem no texto */
+            Folhas[i] = CriaFolha(i, freq[i]);
+            floresta[j++] = Folhas[i];
         }
     }
+
+    /* O texto Ãe vazio */
+    if (j == 0) return false;
+
+    /* Cria uma fila entre os caracteres do texto com base em seus pesos */
+    heap = CriaInicializaHeap(j, compara, (void*)floresta);
+
+    ArvHuf aux1, aux2;
+    /* Tera de ser feita sempre n-1 combicnacoes de arvores, sendo n o numero
+     * caracteres distintos existentes no texto */
+    for (i = 1; i <= j - 1; i++) {
+    /* Criacao da arvore que sera usada na compressao */
+        aux1 = RemoveHeap(heap);
+        aux2 = RemoveHeap(heap);
+        aux1 = CombinaArvs(aux1, aux2);
+        InsereHeap(heap, aux1); 
+    }
     
+    /* Apos a construcao sobra na fila de prioridade apenas mais um elemento, que e
+     * a raiz da arvore ja completamente feita */
+    Arvore = RemoveHeap(heap);
 
+    LiberaHeap(heap);
 
-    return true;   /* PROVISÓRIO */
+    return true;
 
 } /* ConstroiHuffman */
 
 void LiberaHuffman() {
     /* Libera a memória dinâmica ocupada pelas estruturas criadas por
        'ConstroiHuffman'. */
-
-    /*--------------------------*/
-    /*       COMPLETAR !!       */
-    /*--------------------------*/
-
+    LiberaArvoreAux(Arvore);
 } /* LiberaHuffman */
 
 
+Boolean ComprimeLetra(ArvHuf letra, char *bits, int *numBits, int numBitsMax) {
+/* Comprime uma letra e coloca ser valor binario no vetor bits */
+    if (letra != Arvore) {
+        if (!ComprimeLetra(letra->pai, bits, numBits, numBitsMax))
+            return false;
+        return AcrescentaBit(bits, numBits, letra->tipoFilho, numBitsMax);
+    }
+    return true;
+
+} /* ComprimeLetra */
+
 Boolean Comprime(char *txt, int n,
                  char *bits, int *numBits, int numBitsMax) {
-    /* Comprime os 'n' caracteres do texto 'txt' usando as estruturas já
-       construídas, e deixa o resultado como uma seqüência de pseudo-bits
-       (ou bits verdadeiros) na área apontada por 'bits'. Devolve em
-       'numBits' o número total de bits gerado. Em caso de sucesso devolve
-       'true'; se houver mais de 'numBitsMax' bits, devolve 'false'. */
+/* Comprime os 'n' caracteres do texto 'txt' usando as estruturas já
+    construídas, e deixa o resultado como uma seqüência de pseudo-bits
+    (ou bits verdadeiros) na área apontada por 'bits'. Devolve em
+    'numBits' o número total de bits gerado. Em caso de sucesso devolve
+    'true'; se houver mais de 'numBitsMax' bits, devolve 'false'. */
 
-    /*--------------------------*/
-    /*       COMPLETAR !!       */
-    /*--------------------------*/
+    *numBits = 0;
 
-    return true;   /* PROVISÓRIO */
+    for (int i = 0; i < n; i++) {
+    /* Passa por todas as letras do texto, comprimindo uma por uma e 
+     * colocando-as comprimidas no vetor bits */
+        if (!ComprimeLetra(Folhas[(unsigned char) txt[i]], bits, numBits, numBitsMax))
+            return false;
+    }
+
+    return true; 
 
 } /* Comprime */
 
 
 Boolean Descomprime(char *txt, int *n,
                     char *bits, int numBits, int tamMaxTxt) {
-    /* Descomprime a cadeia de pseudo-bits (ou bits verdadeiros) na área
-       apontada por 'bits', de comprimento 'numBits' seguindo a árvore de
-       Huffman já construída.  Em caso de sucesso devolve 'true'; se
-       aparecer uma codificação incompatível com a árvore, ou se houver
-       mais caracteres que 'tamMaxTxt' devolve 'false'.*/
+/* Descomprime a cadeia de pseudo-bits (ou bits verdadeiros) na área
+    apontada por 'bits', de comprimento 'numBits' seguindo a árvore de
+    Huffman já construída.  Em caso de sucesso devolve 'true'; se
+    aparecer uma codificação incompatível com a árvore, ou se houver
+    mais caracteres que 'tamMaxTxt' devolve 'false'.*/
+    ArvHuf aux;
 
-    /*--------------------------*/
-    /*       COMPLETAR !!       */
-    /*--------------------------*/
+    *n = 0;
+    aux = Arvore;
+    for (int i = 0; i < numBits; i++) {
+        if (bits[i] == '0')
+        /* Se o bit for 0, desce para a subarvore esquerda */
+            aux = aux->esq;
+        else aux = aux->dir;
+        /* Se o bit for 1, desce para a subÃ¡rvore direita */
 
-    return true;   /* PROVISÓRIO */
+        /* Se aqualquer uma das subarvores for vazia, o no e folha, pois
+         * nessa  arvore nao ha no com apenas um filho */
+        if (aux->esq == NULL) {
+            if(!AcrescentaChar(txt, n, aux->letra, tamMaxTxt))
+                return false;
+            /* Passando para a proxima letra */
+            aux = Arvore;
+        }
+    }
+
+    return true;
 
 } /* Descomprime */
 

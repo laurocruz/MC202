@@ -1,1 +1,0 @@
-Silenciado em 63

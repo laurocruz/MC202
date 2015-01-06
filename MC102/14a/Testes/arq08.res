@@ -1,1 +1,0 @@
-Alocacao total

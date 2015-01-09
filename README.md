@@ -8,3 +8,5 @@ Segundo Semestre - 2014
 Professor: Tomasz Kowaltowski
 
 Computação - Unicamp
+
+Arquivos "principal.c", "balloc.c", "imprimearvore.c" e os os ".h" não foram feitos pelos alunos da disciplina.

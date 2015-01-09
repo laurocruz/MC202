@@ -5,6 +5,6 @@ Laboratórios de MC202: Turmas E e F
 
 Segundo Semestre - 2014
 
-Professor: Tomasz Kowaltowsky
+Professor: Tomasz Kowaltowski
 
 Computação - Unicamp
